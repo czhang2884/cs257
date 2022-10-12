@@ -1,6 +1,20 @@
 '''
     convert.py
     Carl Zhang, 12 Oct 2022
+
+    The data was accessed here:
+    https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results
+    To run this code, type python3 convert.py in terminal
+    with the above dataset (athlete_events.csv) in your 
+    working directory
+    
+    Once running this file, there will be multiple csv files
+    saved to your working directory. You will use these csv's
+    copying their data to the database tables listed in the
+    'olympics-schema.sql'.
+
+    Once this has been done, go to the 'queries.sql' file to
+    see the next steps.
 '''
 
 import csv
@@ -136,5 +150,25 @@ with open('athlete_events.csv') as original_data_file,\
                 nocs[noc_name][1] += 1
             elif row[14].lower() == 'bronze':
                 nocs[noc_name][2] += 1
+    # the array stored is now accessed through iterating the dictionary
+    # by noc_name and writing onto the csv with the desired information.
     for key in nocs:
-        writer.writerow([key, nocs[key][3], nocs[key][0], nocs[key][1], nocs[key][2]])
+        writer.writerow([nocs[key][3], key, nocs[key][0], nocs[key][1], nocs[key][2]])
+
+#  CREATE TABLE nocs (
+#      id SERIAL,
+#      noc_name TEXT
+#  );
+
+nocs = {}
+with open('athlete_events.csv') as original_data_file,\
+        open('nocs.csv', 'w') as nocs_file:
+    reader = csv.reader(original_data_file)
+    writer = csv.writer(nocs_file)
+    heading_row = next(reader)
+    for row in reader:
+        noc_name = row[7]
+        if noc_name not in nocs:
+            noc_id = len(nocs) + 1
+            nocs[noc_name] = noc_id
+            writer.writerow([noc_id, noc_name])

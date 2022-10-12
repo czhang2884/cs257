@@ -44,3 +44,8 @@ CREATE TABLE medal_count (
     silver integer,
     bronze integer
 );
+
+CREATE TABLE nocs (
+    id SERIAL,
+    noc_name TEXT
+);

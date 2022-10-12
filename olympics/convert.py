@@ -146,12 +146,7 @@ with open('athlete_events.csv') as original_data_file,\
     writer = csv.writer(medal_counts_file)
     heading_row = next(reader)
     for row in reader:
-        if row[0] == '20':
-            sys.exit()
-        print(row)
         noc_name = row[7]
-        print(noc_name)
-        print(row[14])
         if noc_name not in nocs:
             # first index for gold
             # second index for silver
@@ -163,12 +158,9 @@ with open('athlete_events.csv') as original_data_file,\
         elif noc_name in nocs:
             if row[14].lower() == 'gold':
                 nocs[noc_name][0] += 1
-                print(nocs[noc_name][0])
             elif row[14].lower() == 'silver':
                 nocs[noc_name][1] += 1
-                print(nocs[noc_name][1])
             elif row[14].lower() == 'bronze':
                 nocs[noc_name][2] += 1
-                print(nocs[noc_name][2])
     for key in nocs:
         writer.writerow([key, nocs[key][3], nocs[key][0], nocs[key][1], nocs[key][2]])

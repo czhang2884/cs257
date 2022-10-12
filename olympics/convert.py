@@ -146,7 +146,7 @@ with open('athlete_events.csv') as original_data_file,\
     writer = csv.writer(medal_counts_file)
     heading_row = next(reader)
     for row in reader:
-        if row[0] == 20:
+        if row[0] == '20':
             sys.exit()
         print(row)
         noc_name = row[7]

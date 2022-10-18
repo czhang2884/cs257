@@ -18,11 +18,6 @@
 import sys
 import psycopg2
 
-try:
-    connection = psycopg2.connect("dbname='books' user='carlzhang'")
-except:
-    print("I am unable to connect to the database")
-
 # We're also going to import our postgres username, password,
 # and database from a file named config.py, like so:
 import config

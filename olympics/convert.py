@@ -108,6 +108,7 @@ with open('athlete_events.csv') as original_data_file,\
 #      city TEXT
 #  );
 
+games_ids = {}
 with open('athlete_events.csv') as original_data_file,\
         open('game_traits.csv', 'w') as games_traits_file:
     reader = csv.reader(original_data_file)
@@ -118,7 +119,9 @@ with open('athlete_events.csv') as original_data_file,\
         year = row[9]
         season = row[10]
         city = row[11]
-        writer.writerow([game_id, year, season, city])
+        if game_id not in games_ids:
+            games_ids[game_id] = 1
+            writer.writerow([game_id, year, season, city])
 
 #  CREATE TABLE medal_count (
 #      noc_id integer

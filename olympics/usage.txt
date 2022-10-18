@@ -1,0 +1,18 @@
+NAME
+    olympics.py
+
+SYNOPSIS
+    python3 olympics.py noc_aths search_text
+    python3 olympics.py game_num_gmedls
+    python3 olympics.py game_city search_text
+    python3 books.py [-h --help]
+
+DESCRIPTION
+    noc_aths - Given a search string S, print all athletes from a specified NOC
+    
+    game_num_gmedls - Lists all the NOCs and the number of gold medals they have won, in decreasing order of the number of gold medals.
+
+    game_city - Given a search string S, prints the city corresponding to that olympic game. For example, you would want to have search_text in this format
+        "python3 olympics.py game_city '1996 Summer'" or "python3 olympics.py game_city '2014 Winter'" (with a valid year and summer or winter)
+
+    help - information on methods available for olympics.py

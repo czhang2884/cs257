@@ -1,0 +1,13 @@
+
+Requirements for Webapp
+
+Authors: Alex Falk and Carl Zhang
+
+
+
+A brief description of your dataset. Include instructions for how to get the dataset 
+(typically, just a URL and maybe a note about where to click should do the job).
+
+A list of short use cases or user stories you would like to support in the final version of your web application. 
+You may use any of the templates described in the Wikipedia articles on user stories or use cases. 
+For each use case or user story, provide a brief description of how it might be implemented on your website.

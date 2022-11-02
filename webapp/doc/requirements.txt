@@ -3,11 +3,37 @@ Requirements for Webapp
 
 Authors: Alex Falk and Carl Zhang
 
+A brief description of your dataset
+
+    The datasets has information on movies and corresponding reviews for each movie. 
+    Each movie has director and year published information. Each review has user information and rating score.
+
+    To get to the dataset go to this link: https://www.kaggle.com/datasets/clementmsika/mubi-sqlite-database-for-movie-lovers
+    and click download to get all the data.
 
 
-A brief description of your dataset. Include instructions for how to get the dataset 
-(typically, just a URL and maybe a note about where to click should do the job).
 
-A list of short use cases or user stories you would like to support in the final version of your web application. 
-You may use any of the templates described in the Wikipedia articles on user stories or use cases. 
-For each use case or user story, provide a brief description of how it might be implemented on your website.
+
+LIST of short use cases or user stories
+
+    Story: Movie finatic hears about a good movies and want to see the reviews.
+
+    Implentation: They search for the movie name in the search box which suggests movies in a drop-down menu
+    to click. If the user clicks a movie suggestion the site brings user to the desired movie description
+    page. There the user user can scroll to review section.
+
+    Story: Someone wants to watch a bad movie with christmas in the title.
+
+    Implentation: They search for christmas in the search box and they specify low rating in the advanced
+    search. From this the site loads a collection of movies that match the specifications. Then the user
+    can click on movies for the descriptons.
+
+    Story: User wants to review a movie they just saw.
+
+    Implentation: They search for the movie title in the search box and they navigate to the movie description
+    page. Once there, they scroll down to the review page and they can add a review.
+
+    Story: User just finished searching and they want to perform another search.
+
+    Implentation: Instead of having the user navigate all the way back to the homepage, there will always be a 
+    search bar at the top of each page to perform more searches.

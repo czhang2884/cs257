@@ -1,0 +1,54 @@
+/*
+    Carl Zhang and Alex Falk
+*/
+
+.search_box {
+    margin: auto;
+    padding: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.box{
+    float: right;
+    display: flex;
+}
+
+.results_box {
+    float: left;
+    width: 75%;
+    height: 100%;
+    border: 3px solid gray;
+    margin: 0;
+}
+
+.movie_recs_box {
+    float: right;
+    width: 20%;
+    height: 100%;
+    border: 3px solid gray;
+    margin: 0;
+}
+
+.movie_reviews_box {
+    float: right;
+    width: 30%;
+    height: 100%;
+    border: 3px solid gray;
+    margin: 0;
+}
+
+.box_label_text {
+    text-align: center;
+    font-size: large;
+}

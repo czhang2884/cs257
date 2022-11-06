@@ -1,0 +1,23 @@
+REQUEST: /reviews?movie_id={search_id}
+
+RESPONSE: a JSON list of dictionaries, each of which represents one review,
+          sorted by review_score. Each review dictionary will have the following fields:
+
+            review_score -- (int) the user's score of the movie
+            review_comment -- (text) the user's comments on the movie
+            users_name -- (text) name of the user who submitted the review
+
+
+REQUEST: /movies?title_contains={search_text}?release_year={search_int}/average_reviews?average_score={search_int}
+
+RESPONSE: a JSON list of dictionaries, each of which represents one movie,
+          sorted by rating function. This list may be constrained by movie title, release year, rating, and genre.
+          Each dictionary will have the following fields:
+
+            title -- (string) the title of the movie
+            release_year -- (int) the year the movie was released
+            overview -- (text) overview of the movie
+            review_score -- (float) average user rating of the movie
+            review_count -- (int) number of user reviews
+            rating_function -- (float) weighted value that determines order of results
+

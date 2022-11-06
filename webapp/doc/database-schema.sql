@@ -20,7 +20,7 @@ CREATE TABLE reviews {
 CREATE TABLE average_reviews {
     movie_id integer,
     average_review float
-}
+};
 
 CREATE TABLE genres {
     id serial,

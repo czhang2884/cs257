@@ -1,4 +1,4 @@
-CREATE TABLE movies {
+CREATE TABLE movies (
     id serial,
     movie_title text,
     release_year float,
@@ -7,28 +7,28 @@ CREATE TABLE movies {
     popularity integer,
     image_id integer,
     review_id integer
-};
+);
 
-CREATE TABLE reviews {
+CREATE TABLE reviews (
     id serial,
     movie_id integer,
     review_score integer,
     review_comment text,
     users_name text
-};
+);
 
-CREATE TABLE average_reviews {
+CREATE TABLE average_reviews (
     movie_id integer,
     average_review float
-};
+);
 
-CREATE TABLE genres {
+CREATE TABLE genres (
     id serial,
     genre text
-};
+);
 
-CREATE TABLE images {
+CREATE TABLE images (
     id serial,
     movie_id integer,
     image_link text
-};
+);

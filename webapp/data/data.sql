@@ -71,6 +71,7 @@ COPY public.movies (id, movie_title, release_year, genre_id, overview, popularit
 1	Inside Out	2015	5	Great movie	100	3	5
 2	The Room	2003	2	Terrible but wonderful	2	5	2
 3	How to Train Your Dragon	2010	5		60	1	4
+4	Carl and Alex Adventures	2022	2	P cool	1000	3	5
 \.
 
 

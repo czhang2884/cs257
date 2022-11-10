@@ -5,19 +5,21 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='movies.css') }}" />
     <script type="text/javascript" src="{{ url_for('static', filename='movies.js') }}" ></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-    <title>CS 257: Software Design</title>
+    <title>CS 257: Awesome Movie Website</title>
 </head>
 
 <body>
     <div>
-        <h1 style="text-align: center;">MOVIES
-        </h1>
+        <h1 style="text-align: center;">MOVIES</h1>
         <p style="text-align: center;"> Enter the name of a movie you are looking for!</p>
     </div>
     <div class="search_box">
-        <input type="text" placeholder="Search..." name="search">
-        <button type="submit">Submit</button>
+        <!--EDITED THIS FOR THE PURPOSE OF THE CURRENT ASSIGNMENT.
+        UNCOMMENT AND CHANGE BUTTON TEXT-->
+        <!--<input type="text" placeholder="Search..." name="search">-->
+        <button type="submit" id="movie_button">Click here for some movies!</button>
     </div>
+    <p><table class="movie_table" id="movies_table"></table></p>
     <p style="text-align: center;"> Advanced Search</p>
     <div style="width:100%;">
         <div class = "center">

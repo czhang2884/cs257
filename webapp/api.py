@@ -1,9 +1,9 @@
 '''
     api.py
-    Jeff Ondich, 25 April 2016
-    Updated 8 November 2021
+    Adapted from api.py by Jeff Ondich
+    Authors: Carl Zhang and Alex Falk
+    9 Nov 2022
 
-    Tiny Flask API to support the tiny books web application.
 '''
 import sys
 import flask
@@ -23,13 +23,7 @@ def get_connection():
 
 @api.route('/movies/')
 def get_movies():
-    query = '''SELECT id, movie_title, release_year FROM movies ORDER BY '''
-
-    sort_argument = flask.request.args.get('sort')
-    if sort_argument == 'id':
-        query += 'id'
-    else:
-        query += 'release_year'
+    query = '''SELECT id, movie_title, release_year FROM movies;'''
 
     movie_list = []
     try:
@@ -40,11 +34,6 @@ def get_movies():
             movie = {'id':row[0],
                       'movie_title':row[1],
                       'release_year':row[2],
-                      'genre_id':row[3],
-                      'overview':row[4],
-                      'popularity':row[5],
-                      'image_id':row[6],
-                      'review_id':row[7]
                     }
             movie_list.append(movie)
         cursor.close()

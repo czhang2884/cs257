@@ -10,27 +10,29 @@
 
 <body>
     <div>
-        <h1 style="text-align: center;">MOVIES</h1>
-        <p style="text-align: center;"> Enter the name of a movie you are looking for!</p>
+        <video autoplay muted loop id="myVideo">
+            <source src="static/movies.mp4" type="video/mp4">
+        </video>
     </div>
-    <div class="search_box">
-        <!--EDITED THIS FOR THE PURPOSE OF THE CURRENT ASSIGNMENT.
-        UNCOMMENT AND CHANGE BUTTON TEXT-->
-        <!--<input type="text" placeholder="Search..." name="search">-->
-        <button type="submit" id="movie_button">Click here for some movies!</button>
-    </div>
-    <p><table class="movie_table" id="movies_table"></table></p>
-    <p style="text-align: center;"> Advanced Search</p>
-    <div style="width:100%;">
-        <div class = "center">
+    <div class="mainpage_items">
+        <div>
+            <h1>MOVIES</h1>
+        </div>
+        <div>
+            <p> Enter the name of a movie you are looking for!</p>
+        </div>
+        <div>
+            <input type="text" placeholder="Search..." name="search">
+            <a href="/results"><button type="submit" id="movie_search_button">Submit</button></a>
+        </div>
+        
+        
+        <div style="justify-content: space-around;">
+            <p style="text-align: center;"> Advanced Search</p>
             <button style="height: 20px" type="submit">Year</button>
             <button style="height: 20px" type="submit">Ratings</button>
             <button style="height: 20px" type="submit">Best Movie Ever</button>
         </div>
-    </div>
-    
-    <div>
-        
     </div>
     </body>
 </html>

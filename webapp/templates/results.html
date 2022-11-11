@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='movies.css') }}" />
+        <script type="text/javascript" src="{{ url_for('static', filename='movies.js') }}" ></script>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+        <title>CS 257: Awesome Movie Website</title>
+    </head>
+
+<body>
+<div class="box">
+    <input type="text" placeholder="New search..." name="search">
+    <button type="submit"><i class="fa fa-search"></i>Submit</button>
+</div>
+    <h2>Search: USER INPUT</h2>
+<div class="results_box">
+    <ul id="movies_list"></ul>
+</div>
+<div class="movie_recs_box"> 
+    <p class="box_label_text">
+        Movie Recommendations
+    </p>
+    <ul>
+        <li>
+            Here's where the movie recs will go
+        </li>
+        <li>
+            There will be icons with links
+        </li>
+        <li>
+            We are using bullet points to show how far this box will extend
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

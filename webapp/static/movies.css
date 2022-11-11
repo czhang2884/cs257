@@ -61,3 +61,27 @@
   justify-content: center;
   margin: 0 auto;
 }
+
+.mainpage_items {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+h1 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+#myVideo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}

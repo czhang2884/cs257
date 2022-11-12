@@ -21,15 +21,15 @@ def get_connection():
                             user=config.user,
                             password=config.password)
 
-@api.route('/movies/')
-def get_movies():
-    query = '''SELECT id, movie_title, release_year FROM movies;'''
+@api.route('/movies/<movie_string>')
+def get_movies(movie_string):
+    query = '''SELECT id, movie_title, release_year FROM movies WHERE movie_title ILIKE '%%%s%%';'''
 
     movie_list = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, tuple())
+        cursor.execute(query, (movie_string,))
         for row in cursor:
             movie = {'id':row[0],
                       'movie_title':row[1],

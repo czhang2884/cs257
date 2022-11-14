@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<div id="search_elements">
     <div>
         <video autoplay muted loop id="myVideo">
             <source src="static/movies.mp4" type="video/mp4">
@@ -23,7 +24,7 @@
         </div>
         <div>
             <input type="text" placeholder="Search..." name="search" id="movie_search_box">
-            <a href="/results"><button type="submit" id="movie_search_button">Submit</button></a>
+            <button type="submit" id="movie_search_button">Submit</button>
         </div>
         
         
@@ -34,5 +35,32 @@
             <button style="height: 20px" type="submit">Best Movie Ever</button>
         </div>
     </div>
-    </body>
+</div>
+<div id="results_elements" style="display: none;">
+    <div class="box">
+        <input type="text" placeholder="New search..." name="search" id="movie_search_box2">
+        <button type="submit" id="movie_search_button2"><i class="fa fa-search"></i>Submit</button>
+    </div>
+        <h2 id="display_user_input"></h2>
+    <div class="results_box">
+        <ul id="movies_list"></ul>
+    </div>
+    <div class="movie_recs_box"> 
+        <p class="box_label_text">
+            Movie Recommendations
+        </p>
+        <ul>
+            <li>
+                Here's where the movie recs will go
+            </li>
+            <li>
+                There will be icons with links
+            </li>
+            <li>
+                We are using bullet points to show how far this box will extend
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
 </html>

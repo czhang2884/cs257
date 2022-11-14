@@ -15,9 +15,9 @@ app.register_blueprint(api.api, url_prefix='/api')
 def home():
     return flask.render_template('home.html')
 
-@app.route('/results')
+@app.route('/bios')
 def about():
-    return flask.render_template('results.html')
+    return flask.render_template('bios.html')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A movie application, including API & DB')

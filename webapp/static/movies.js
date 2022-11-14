@@ -1,33 +1,21 @@
 /*
- * books.js
- * Jeff Ondich, 27 April 2016
- * Updated, 5 November 2020
+ * movies.js
+ * Carl Zhang and Alex Falk
+ * 11/12/2022
  */
 
 window.onload = initialize;
 
 function initialize() {
-    let movies_list = document.getElementById('movies_list')
-    if (movies_list) {
-        window.onload = onMoviesLoad();
-    }
     
-    let movie_search_text = document.getElementById('movie_search_box');
+    // Main submit button
     let movie_button = document.getElementById('movie_search_button');
-    if (movie_button) {
-        // GET INFO FROM SEARCH BOX
-        movie_button.onclick = onMoviesLoad(movie_search_text.value);
-    }
-    
-    // Useful for when we want to take user inputs
-    /** window.addEventListener("DOMContentLoaded", (e) => {
-        let btn = document.querySelector(".searchBtn");
-        let input = document.querySelector(".inputSearch");
+    movie_button.onclick = onMovieSubmit;
 
-        btn.addEventListener("click", (e) => {
-            searchFunction(input.value);
-        });
-    }); **/
+    // Secondary submit button
+    let movie_button2 = document.getElementById('movie_search_button2');
+    movie_button2.onclick = onMovieSubmit;
+
 }
 
 // Returns the base URL of the API, onto which endpoint
@@ -40,30 +28,44 @@ function getAPIBaseURL() {
     return baseURL;
 }
 
-// Get string from search box and calls it with onMoviesload(Search_string)
 function onMovieSubmit() {
+
+    let search_elements = document.getElementById("search_elements");
+    let results_elements = document.getElementById("results_elements");
+
+    if (results_elements.style.display == "none") {
+        search_elements.style.display = "none";
+        results_elements.style.display = "block";
+
+        search_box_text = document.getElementById('movie_search_box').value;
+    } else {
+        search_box_text = document.getElementById('movie_search_box2').value;
+    }
+    onMoviesLoad(search_box_text);
 
 }
 
 function onMoviesLoad(movieString) {
     let url = getAPIBaseURL() + '/movies/' + movieString;
-    
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
     .then(function(movies) {
-        let listBody = '<tr><th>Results for "' + movieString + '"</th></tr>';
+        let listBody = '';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
             listBody += '<li><tr>'
                             + '<td> ' + movie['id'] + ' <td>'
-                            + '<td> ' + movie['movie_title'] + ' <td>'
+                            + '<td><a href="/bios"> ' + movie['movie_title'] + ' </a><td>'
                             + '<td> ' + movie['release_year'] + ' <td>'
                             + '<tr></li>\n';
         }
+
+        let displayUserInput = document.getElementById("display_user_input")
         let listMovies = document.getElementById('movies_list');
         if (listMovies) {
+            displayUserInput.innerHTML = "Results for '" + movieString + "'";
             listMovies.innerHTML = listBody;
         }
     })
@@ -72,4 +74,5 @@ function onMoviesLoad(movieString) {
         console.log(error);
     })
 }
+
 

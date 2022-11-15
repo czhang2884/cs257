@@ -1,0 +1,49 @@
+REQUEST: /movies
+
+GET parameters
+    search_text (Optional, default: '') -- return movies whose
+        titles contain search_text, case-insensitively
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+movie Each dictionary in this list will have the following fields:
+
+   movie_title -- (TEXT) the title of the movie
+   publication_year -- (INTEGER) year the movie was published
+
+EXAMPLE:
+    /movies?search_text=in
+
+       [{"movie_title":"Inside Out", "publication_year":"2015"},
+        {"movie_title":"How to Train Your Dragon", "publication_year":"2010"}]
+
+########################### FEATURES TO IMPLEMENT: ###########################
+
+REQUEST: /movies
+
+GET parameters
+    search_text (Optional, default: '') -- return movies whose
+        titles contain search_text, case-insensitively
+
+    year (Optional, default: movies from all publication 
+        years) -- return movies whose publication year follow 
+        the specified year constraints, for ex. after 2010
+
+    rating (Optional, default: movies of all ratings) -- return 
+    movies whose ratings follow the specified rating constraints,
+    for ex. above 3 stars.
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+movie Each dictionary in this list will have the following fields:
+
+   movie_title -- (TEXT) the title of the movie
+   publication_year -- (INTEGER) year the movie was published
+   rating -- (FLOAT) avg rating of movie
+
+EXAMPLE:
+    /movies?search_text=in&rating>3&publication_year>=2010
+
+       [{"movie_title":"Inside Out", "publication_year":"2015", "rating":"4.3"},
+        {"movie_title":"How to Train Your Dragon", "publication_year":"2010", "rating":"3.1"}]
+
+
+

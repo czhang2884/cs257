@@ -1,6 +1,6 @@
-REQUEST: /movies
+REQUEST: /movies \n
 
-GET parameters
+GET parameters\n
     search_text (Optional, default: '') -- return movies whose
         titles contain search_text, case-insensitively
 

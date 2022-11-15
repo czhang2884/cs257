@@ -30,11 +30,12 @@ def get_movies(movie_string):
         cursor = connection.cursor()
         cursor.execute(query, (movie_string,))
         for row in cursor:
-            movie = {'id':row[0],
+            movie = {'id':int(row[0]),
                       'movie_title':row[1],
                       'release_year':row[2],
                     }
             movie_list.append(movie)
+        print(movie_list)
         cursor.close()
         connection.close()
     except Exception as e:

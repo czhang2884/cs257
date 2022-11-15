@@ -16,8 +16,12 @@ def home():
     return flask.render_template('home.html')
 
 @app.route('/bios')
-def about():
+def bios():
     return flask.render_template('bios.html')
+
+@app.route('/api/help')
+def help():
+    return flask.render_template('help.txt')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A movie application, including API & DB')

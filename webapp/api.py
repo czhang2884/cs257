@@ -23,7 +23,7 @@ def get_connection():
 
 @api.route('/movies/<movie_string>')
 def get_movies(movie_string):
-    query = '''SELECT id, movie_title, release_year FROM movies WHERE movie_title ILIKE CONCAT('%%', %s, '%%'); '''
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year FROM movies WHERE movie_title ILIKE CONCAT('%%', %s, '%%'); '''
     movie_list = []
     try:
         connection = get_connection()
@@ -42,3 +42,7 @@ def get_movies(movie_string):
 
     return json.dumps(movie_list)
 
+
+@api.route('/movies/<movie_id>')
+def get_movie_info(movie_id):
+   return

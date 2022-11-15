@@ -56,9 +56,8 @@ function onMoviesLoad(movieString) {
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
             listBody += '<li><tr>'
-                            + '<td> ' + movie['id'] + ' <td>'
-                            + '<td><a href="/bios"> ' + movie['movie_title'] + ' </a><td>'
-                            + '<td> ' + movie['release_year'] + ' <td>'
+                            + '<td><a href="/bios"> ' + movie['movie_title'] + ' |</a><td>'
+                            + '<td> ' + movie['release_year'] + ' |<td>'
                             + '<tr></li>\n';
         }
 

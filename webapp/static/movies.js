@@ -50,7 +50,7 @@ function onMovieSubmit() {
 }
 
 function onMoviesLoad(movieString) {
-    let url = getAPIBaseURL() + '/movies_dropdown/' + movieString;
+    let url = getAPIBaseURL() + '/movies/' + movieString;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())

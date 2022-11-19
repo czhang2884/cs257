@@ -105,6 +105,25 @@ def get_overview(movie_id):
 # Gets movie review info
 @api.route('/reviews/<movie_id>')
 def get_review(movie_id): 
-    query = '''SELECT reviews.review_score reviews.review_comment reviews.users_name FROM reviews, movies WHERE reviews.movie_id = movies.id'''
+    query = '''SELECT reviews.review_score, reviews.review_comment, reviews.users_name 
+               FROM reviews, movies 
+               WHERE reviews.movie_id = movies.id 
+               AND movies.id = %s;'''
+    review_list = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (movie_id,))
+        for row in cursor:
+            review = {'review_score':row[0],
+                      'review_comment':row[1],
+                      'users_name':row[2],
+                    }
+            review_list.append(review)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
 
+    return json.dumps(review_list)
 

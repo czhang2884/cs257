@@ -45,7 +45,7 @@ def get_movies(movie_string):
 # Specific database for dropdown menu (title and picture)
 @api.route('/movies_dropdown/<movie_string>')
 def get_movies_dropdown(movie_string):
-    query = '''SELECT movies.movie_title, images.image_link, movies.release_year FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 5;'''
+    query = '''SELECT movies.movie_title, images.image_link, movies.release_year FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 30;'''
     movie_list = []
     try:
         connection = get_connection()

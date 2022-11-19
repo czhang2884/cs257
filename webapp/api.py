@@ -53,15 +53,11 @@ def get_movies(movie_string):
 # HAS NOT BEEN TESTED
 @api.route('/movies_dropdown/<movie_string>')
 def get_movies_dropdown(movie_string):
-<<<<<<< HEAD
-    query = '''SELECT movies.movie_title, images.image_link, movies.release_year FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 30;'''
-=======
     query = '''SELECT movies.id movies.movie_title, movies.release_year, images.image_link 
                FROM movies, images 
                WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
                AND movies.id = images.movie_id 
                ORDER BY movies.popularity LIMIT 5;'''
->>>>>>> 72c7203460991455e926bcf51e2332757275e1f8
     movie_list = []
     try:
         connection = get_connection()

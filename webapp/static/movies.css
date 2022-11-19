@@ -2,6 +2,38 @@
     Carl Zhang and Alex Falk
 */
 
+.left{
+  display: inline-flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.right{
+  display: inline-flex;
+  justify-content: right;    
+}
+
+.navbar{
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.results_box {
+  float: left;
+  width: 75%;
+  height: 100%;
+  border: 3px solid gray;
+  margin: 0;
+}
+
+.main_results_box {
+  flex: 1
+}
+
 .search_box {
   margin: auto;
   padding: 100px;

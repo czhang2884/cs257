@@ -36,30 +36,28 @@
         </div>
     </div>
 </div>
+
 <div id="results_elements" style="display: none;">
-    <div class="box">
-        <input type="text" placeholder="New search..." name="search" id="movie_search_box2">
-        <button type="submit" id="movie_search_button2"><i class="fa fa-search"></i>Submit</button>
+    <div class="navbar">
+        <div class="left">
+            <a href="home.html" title="go back to home page">
+                <img src="../static/favicon.ico">
+            </a>
+            <h2 style="padding-left: 25px;">Search: USER INPUT</h2>
+        </div>
+        <div class="right">
+            <input type="text" placeholder="New search..." name="search">
+            <button type="submit"><i class="fa fa-search"></i>Submit</button>
+        </div>
     </div>
-        <h2 id="display_user_input"></h2>
-    <div class="results_box">
-        <ul id="movies_list"></ul>
-    </div>
-    <div class="movie_recs_box"> 
-        <p class="box_label_text">
-            Movie Recommendations
-        </p>
-        <ul>
-            <li>
-                Here's where the movie recs will go
-            </li>
-            <li>
-                There will be icons with links
-            </li>
-            <li>
-                We are using bullet points to show how far this box will extend
-            </li>
-        </ul>
+    
+    <div class="main_results_box">
+        <div class="results_box">
+            <p id="loading_text"></p>
+        </div>
+        <div class="movie_recs_box"> 
+            <p id="loading_recs_text"></p>
+        </div>
     </div>
 </div>
 </body>

@@ -50,7 +50,7 @@ function onMovieSubmit() {
 }
 
 function onMoviesLoad(movieString) {
-    let url = getAPIBaseURL() + '/movies_dropdown/' + movieString;
+    let url = getAPIBaseURL() + '/movies/' + movieString;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
@@ -59,13 +59,12 @@ function onMoviesLoad(movieString) {
         let listBody = '<ul class="skeleton_product">';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
-            listBody += '<li><div class="movie_item"><div class="card_product_image">'
+            listBody += '<li class="movie_items"><div><div>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
-                            + '</div></div>'
-                            + '<div>' + movie['movie_title'] + ' ' + movie['release_year'] + '</div>'
-                            + '</li></ul>';
+                            + '</div><div class="text_movie_items">'
+                            + movie['movie_title'] + ' ' + movie['release_year'] + '</div></div></li>';
         }
-
+        listBody += '</ul>';
         let displayUserInput = document.getElementById("display_user_input")
         let listMovies = document.getElementById('movies_list');
         if (listMovies) {

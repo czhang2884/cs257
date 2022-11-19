@@ -21,9 +21,15 @@ def get_connection():
                             user=config.user,
                             password=config.password)
 
+# Movies to display on results page
 @api.route('/movies/<movie_string>')
 def get_movies(movie_string):
-    query = '''SELECT movies.id, movies.movie_title, movies.release_year FROM movies WHERE movie_title ILIKE CONCAT('%%', %s, '%%'); '''
+    # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link 
+               FROM movies, images 
+               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.id = images.movie_id 
+               ORDER BY movies.popularity DESC;'''
     movie_list = []
     try:
         connection = get_connection()
@@ -33,6 +39,7 @@ def get_movies(movie_string):
             movie = {'id':int(row[0]),
                       'movie_title':row[1],
                       'release_year':row[2],
+                      'image_link':row[3]
                     }
             movie_list.append(movie)
         cursor.close()
@@ -43,18 +50,28 @@ def get_movies(movie_string):
     return json.dumps(movie_list)
 
 # Specific database for dropdown menu (title and picture)
+# HAS NOT BEEN TESTED
 @api.route('/movies_dropdown/<movie_string>')
 def get_movies_dropdown(movie_string):
+<<<<<<< HEAD
     query = '''SELECT movies.movie_title, images.image_link, movies.release_year FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 30;'''
+=======
+    query = '''SELECT movies.id movies.movie_title, movies.release_year, images.image_link 
+               FROM movies, images 
+               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.id = images.movie_id 
+               ORDER BY movies.popularity LIMIT 5;'''
+>>>>>>> 72c7203460991455e926bcf51e2332757275e1f8
     movie_list = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query, (movie_string,))
         for row in cursor:
-            movie = {'movie_title':row[0],
-                      'image_link':row[1],
-                      'release_year':row[2]
+            movie = {'id':int(row[0]),
+                      'movie_title':row[1],
+                      'release_year':row[2],
+                      'image_link':row[3]
                     }
             movie_list.append(movie)
         cursor.close()
@@ -64,6 +81,53 @@ def get_movies_dropdown(movie_string):
 
     return json.dumps(movie_list)
 
-# @api.route('/movies/<movie_id>')
-# def get_movie_info(movie_id):
-#    return
+# Get movie review for a specific movie (for popup from results page and movie bios)
+# THIS HAS NOT BEEN TESTED
+@api.route('/overview/<movie_id>')
+def get_overview(movie_id):
+    query = '''SELECT movies.overview 
+               FROM movies 
+               WHERE movies.id = %s;'''
+    overview_string = ''
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (movie_id,))
+        for row in cursor:
+            overview = {'overview':row[0]}
+            overview_string.append(overview)
+        if overview_string == '':
+            overview_string = 'There is no overview for this movie!'
+        cursor.close()
+        connection.close()
+        print(overview_string)
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(overview_string)
+
+# Gets movie review info
+@api.route('/reviews/<movie_id>')
+def get_review(movie_id): 
+    query = '''SELECT reviews.review_score, reviews.review_comment, reviews.users_name 
+               FROM reviews, movies 
+               WHERE reviews.movie_id = movies.id 
+               AND movies.id = %s;'''
+    review_list = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (movie_id,))
+        for row in cursor:
+            review = {'review_score':row[0],
+                      'review_comment':row[1],
+                      'users_name':row[2],
+                    }
+            review_list.append(review)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(review_list)
+

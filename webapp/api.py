@@ -35,7 +35,6 @@ def get_movies(movie_string):
                       'release_year':row[2],
                     }
             movie_list.append(movie)
-        print(movie_list)
         cursor.close()
         connection.close()
     except Exception as e:
@@ -43,7 +42,28 @@ def get_movies(movie_string):
 
     return json.dumps(movie_list)
 
+# Specific database for dropdown menu (title and picture)
+@api.route('/movies_dropdown/<movie_string>')
+def get_movies_dropdown(movie_string):
+    query = '''SELECT movies.movie_title, images.image_link, movies.release_year FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 5;'''
+    movie_list = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (movie_string,))
+        for row in cursor:
+            movie = {'movie_title':row[0],
+                      'image_link':row[1],
+                      'release_year':row[2]
+                    }
+            movie_list.append(movie)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
 
-@api.route('/movies/<movie_id>')
-def get_movie_info(movie_id):
-   return
+    return json.dumps(movie_list)
+
+# @api.route('/movies/<movie_id>')
+# def get_movie_info(movie_id):
+#    return

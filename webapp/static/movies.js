@@ -30,9 +30,11 @@ function getAPIBaseURL() {
 
 function onMovieSubmit() {
 
+    // Assign variables to html elements
     let search_elements = document.getElementById("search_elements");
     let results_elements = document.getElementById("results_elements");
 
+    // Checks which search box is being used and gets input. If main search box, hides elements and shows new elements.
     if (results_elements.style.display == "none") {
         search_elements.style.display = "none";
         results_elements.style.display = "block";
@@ -41,6 +43,8 @@ function onMovieSubmit() {
     } else {
         search_box_text = document.getElementById('movie_search_box2').value;
     }
+
+    // Get movies based on what user put into search box
     onMoviesLoad(search_box_text);
 
 }

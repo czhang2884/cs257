@@ -21,10 +21,15 @@ def get_connection():
                             user=config.user,
                             password=config.password)
 
+# Movies to display on results page
 @api.route('/movies/<movie_string>')
 def get_movies(movie_string):
-    # QUERY WILL INCLUDE MORE DATA
-    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity DESC;'''
+    # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link 
+               FROM movies, images 
+               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.id = images.movie_id 
+               ORDER BY movies.popularity DESC;'''
     movie_list = []
     try:
         connection = get_connection()
@@ -48,7 +53,11 @@ def get_movies(movie_string):
 # HAS NOT BEEN TESTED
 @api.route('/movies_dropdown/<movie_string>')
 def get_movies_dropdown(movie_string):
-    query = '''SELECT movies.id movies.movie_title, movies.release_year, images.image_link FROM movies, images WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') AND movies.id = images.movie_id ORDER BY movies.popularity LIMIT 5;'''
+    query = '''SELECT movies.id movies.movie_title, movies.release_year, images.image_link 
+               FROM movies, images 
+               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.id = images.movie_id 
+               ORDER BY movies.popularity LIMIT 5;'''
     movie_list = []
     try:
         connection = get_connection()
@@ -68,11 +77,13 @@ def get_movies_dropdown(movie_string):
 
     return json.dumps(movie_list)
 
-# Get movie review for a specific movie (for popup from results page)
+# Get movie review for a specific movie (for popup from results page and movie bios)
 # THIS HAS NOT BEEN TESTED
 @api.route('/overview/<movie_id>')
 def get_overview(movie_id):
-    query = '''SELECT movies.overview FROM movies WHERE movies.id = %s'''
+    query = '''SELECT movies.overview 
+               FROM movies 
+               WHERE movies.id = %s;'''
     overview_string = ''
     try:
         connection = get_connection()
@@ -90,4 +101,10 @@ def get_overview(movie_id):
         print(e, file=sys.stderr)
 
     return json.dumps(overview_string)
+
+# Gets movie review info
+@api.route('/reviews/<movie_id>')
+def get_review(movie_id): 
+    query = '''SELECT reviews.review_score reviews.review_comment reviews.users_name FROM reviews, movies WHERE reviews.movie_id = movies.id'''
+
 

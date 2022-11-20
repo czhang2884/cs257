@@ -16,6 +16,29 @@ function initialize() {
     let movie_button2 = document.getElementById('movie_search_button2');
     movie_button2.onclick = onMovieSubmit;
 
+    // User presses enter
+    let movie_input1 = document.getElementById('movie_search_box');
+    movie_input1.addEventListener("keypress", onEnterPressedMain);
+
+    let movie_input2 = document.getElementById('movie_search_box2');
+    movie_input2.addEventListener("keypress", onEnterPressedSub);
+
+}
+
+// Enter press for main search
+function onEnterPressedMain(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById('movie_search_button').click();
+    }
+}
+
+// Enter press for sub search
+function onEnterPressedSub(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById('movie_search_button2').click();
+    }
 }
 
 // Returns the base URL of the API, onto which endpoint
@@ -58,7 +81,7 @@ function onMoviesLoad(movieString) {
         let listBody = '<ul class="skeleton_product">';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
-            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">Tooltip text</span>'
+            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
                             + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';

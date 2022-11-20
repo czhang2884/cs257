@@ -85,7 +85,7 @@ def get_movies_dropdown(movie_string):
 @api.route('/movie_bio/<movie_id>')
 def get_movie_bio_info(movie_id):
     # genre, average_reviews
-    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue
+    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue, movies.director_id
                FROM movies, images, profit 
                WHERE movies.id = %s
                AND movies.id = images.movie_id

@@ -91,7 +91,7 @@ function onMoviesClick(movie_id) {
         let listBody = '<ul>';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
-            listBody += movie;
+            listBody += "Hello";
         }
         listBody = '</ul>'
         let movie_bio_info = document.getElementById('movie_bio_info');

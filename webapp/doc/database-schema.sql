@@ -1,18 +1,18 @@
 
-# CREATE TABLE movies (
-#     id numeric,
-#     movie_title text,
-#     release_year integer,
-#     genre text,
-#     overview text,
-#     popularity numeric,
-#     director_id text,
-#     mubi_url text,
-#     title_lang text,
-#     orig_lang text,
-#     runtime integer,
-#     adult integer
-# );
+CREATE TABLE movies (
+    id numeric,
+    movie_title text,
+    release_year integer,
+    genre text,
+    overview text,
+    popularity numeric,
+    director_id text,
+    mubi_url text,
+    title_lang text,
+    orig_lang text,
+    runtime integer,
+    adult integer
+);
 
 CREATE TABLE reviews (
     rating_id integer,
@@ -29,16 +29,16 @@ CREATE TABLE average_reviews (
     num_reviews integer
 );
 
-# CREATE TABLE users (
-#     user_id integer,
-#     profile_pic text
-# );
+CREATE TABLE users (
+    user_id integer,
+    profile_pic text
+);
 
-# CREATE TABLE profit (
-#     movie_id integer,
-#     budget numeric,
-#     revenue numeric
-# );
+CREATE TABLE profit (
+    movie_id integer,
+    budget numeric,
+    revenue numeric
+);
 
 CREATE TABLE voting_average (
     movie_id integer,

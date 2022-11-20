@@ -85,11 +85,11 @@ with open('../doc/datasets/mubi_ratings_user_data.csv') as original_data_file,\
             writer.writerow([user_id, pic])
 print("done with users convert")
 
-# # CREATE TABLE profit (
-# #     movie_id integer,
-# #     budget numeric,
-# #     revenue numeric
-# # );
+# CREATE TABLE profit (
+#     movie_id numeric,
+#     budget numeric,
+#     revenue numeric
+# );
 
 # profit = {}
 # with open('../doc/datasets/movies_joined_info.csv') as original_data_file,\
@@ -108,7 +108,7 @@ print("done with users convert")
 # print("done with profit convert")
 
 # # CREATE TABLE voting_average (
-# #     movie_id integer,
+# #     movie_id numeric,
 # #     vote_avg float,
 # #     vote_count integer
 # # );
@@ -150,7 +150,7 @@ print("done with users convert")
 # print("done with genres convert")
 
 # # CREATE TABLE images (
-# #     movie_id integer,
+# #     movie_id numeric,
 # #     image_link text
 # # );
 
@@ -233,7 +233,7 @@ print("done with users convert")
 
 # avg_ratings = {}
 # with open('../doc/datasets/mubi_ratings_data.csv') as original_data_file,\
-#         open('average_reviews', 'w') as average_reviews_file:
+#         open('average_reviews.csv', 'w') as average_reviews_file:
 #     reader = csv.reader(original_data_file)
 #     writer = csv.writer(average_reviews_file)
 #     heading_row = next(reader)

@@ -35,13 +35,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE profit (
-    movie_id integer,
+    movie_id numeric,
     budget numeric,
     revenue numeric
 );
 
 CREATE TABLE voting_average (
-    movie_id integer,
+    movie_id numeric,
     vote_avg float,
     vote_count integer
 );
@@ -52,7 +52,7 @@ CREATE TABLE genres (
 );
 
 CREATE TABLE images (
-    movie_id integer,
+    movie_id numeric,
     image_link text
 );
 

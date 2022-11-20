@@ -18,6 +18,10 @@ function initialize() {
 
 }
 
+function testFunction() {
+    print()
+}
+
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.
 function getAPIBaseURL() {
@@ -40,13 +44,12 @@ function onMovieSubmit() {
         results_elements.style.display = "block";
 
         search_box_text = document.getElementById('movie_search_box').value;
-    } else {
+    } else {        
         search_box_text = document.getElementById('movie_search_box2').value;
     }
 
     // Get movies based on what user put into search box
     onMoviesLoad(search_box_text);
-
 }
 
 function onMoviesLoad(movieString) {
@@ -61,8 +64,8 @@ function onMoviesLoad(movieString) {
             let movie = movies[k];
             listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">Tooltip text</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
-                            + '<div class="text_movie_items">'
-                            + movie['movie_title'] + ' ' + movie['release_year'] + '</div></div></li>';
+                            + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
+                            + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
         }
         listBody += '</ul>';
         let displayUserInput = document.getElementById("display_user_input")
@@ -78,4 +81,29 @@ function onMoviesLoad(movieString) {
     })
 }
 
+function onMoviesClick(movie_id) {
+    let url = getAPIBaseURL() + '/movie_bio/' + movie_id;
+    fetch(url, {method: 'get'})
 
+    .then((response) => response.json())
+
+    .then(function(movies) {
+        let listBody = '<ul>';
+        for (let k = 0; k < movies.length; k++) {
+            let movie = movies[k];
+            listBody += movie;
+        }
+        listBody = '</ul>'
+        let movie_bio_info = document.getElementById('movie_bio_info');
+        movie_bio_info.innerHTML = listBody;
+    })
+
+    .catch(function(error) {
+        console.log(error);
+    })
+}
+
+function onBioLoad() {
+    queryString = window.location.pathname.replace('/bios/', '');
+    movie_bio_string = onMoviesClick(queryString);
+}

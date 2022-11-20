@@ -15,8 +15,8 @@ app.register_blueprint(api.api, url_prefix='/api')
 def home():
     return flask.render_template('home.html')
 
-@app.route('/bios')
-def bios():
+@app.route('/bios/<int:movie_id>')
+def bios(movie_id):
     return flask.render_template('bios.html')
 
 @app.route('/api/help')

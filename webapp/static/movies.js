@@ -61,8 +61,8 @@ function onMoviesLoad(movieString) {
             let movie = movies[k];
             listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">Tooltip text</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
-                            + '</div><div class="text_movie_items">'
-                            + movie['movie_title'] + ' ' + movie['release_year'] + '</div></li>';
+                            + '<div class="text_movie_items">'
+                            + movie['movie_title'] + ' ' + movie['release_year'] + '</div></div></li>';
         }
         listBody += '</ul>';
         let displayUserInput = document.getElementById("display_user_input")

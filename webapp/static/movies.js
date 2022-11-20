@@ -18,10 +18,6 @@ function initialize() {
 
 }
 
-function testFunction() {
-    print()
-}
-
 // Returns the base URL of the API, onto which endpoint
 // components can be appended.
 function getAPIBaseURL() {

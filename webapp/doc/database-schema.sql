@@ -15,11 +15,12 @@
 # );
 
 CREATE TABLE reviews (
-    id integer,
+    rating_id integer,
+    user_id integer,
     movie_id integer,
     review_score integer,
     review_comment text,
-    users_name text
+    timestamp text
 );
 
 CREATE TABLE average_reviews (

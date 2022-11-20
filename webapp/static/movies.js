@@ -81,6 +81,7 @@ function onMoviesLoad(movieString) {
     })
 }
 
+// Displays movie info on bio page
 function onMoviesClick(movie_id) {
     let url = getAPIBaseURL() + '/movie_bio/' + movie_id;
     fetch(url, {method: 'get'})
@@ -106,6 +107,7 @@ function onMoviesClick(movie_id) {
     })
 }
 
+// Called when bios.html loads
 function onBioLoad() {
     queryString = window.location.pathname.replace('/bios/', '');
     movie_bio_string = onMoviesClick(queryString);

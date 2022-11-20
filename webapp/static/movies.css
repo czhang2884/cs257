@@ -136,8 +136,7 @@ ul {
 }
 
 .bio_img {
-  float: left;
-  margin: 10px;
+  width: 100%;
 }
 
 .box_label_text {
@@ -160,10 +159,6 @@ ul {
   flex-direction: column;
   align-items: center;
   position: relative;
-}
-
-h1 {
-  color: white;
 }
 
 #myVideo {

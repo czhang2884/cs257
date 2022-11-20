@@ -37,53 +37,53 @@ import re
 #     adult integer
 # );
 
-movie = {}
-with open('../doc/datasets/movies_joined_info.csv') as original_data_file,\
-        open('movies.csv', 'w') as movies_file:
-    reader = csv.reader(original_data_file)
-    writer = csv.writer(movies_file)
-    heading_row = next(reader)
-    for row in reader:
-        movie_id = row[1]
-        title = row[2]
-        release_year = row[3]
-        genres = row[14]
-        overiew = row[19]
-        popularity = row[6]
-        director_id = row[8]
-        mubi_url = row[4]
-        title_lang = row[5]
-        orig_lang = row[18]
-        runtime = str(row[26])
-        if row[11]:
-            adult = 1
-        elif not row[11]:
-            adult = 0
+# movie = {}
+# with open('../doc/datasets/movies_joined_info.csv') as original_data_file,\
+#         open('movies.csv', 'w') as movies_file:
+#     reader = csv.reader(original_data_file)
+#     writer = csv.writer(movies_file)
+#     heading_row = next(reader)
+#     for row in reader:
+#         movie_id = row[1]
+#         title = row[2]
+#         release_year = row[3]
+#         genres = row[14]
+#         overiew = row[19]
+#         popularity = row[6]
+#         director_id = row[8]
+#         mubi_url = row[4]
+#         title_lang = row[5]
+#         orig_lang = row[18]
+#         runtime = str(row[26])
+#         if row[11]:
+#             adult = 1
+#         elif not row[11]:
+#             adult = 0
 
-        if movie_id not in movie:
-            movie[movie_id] = title
-            writer.writerow([movie_id, title, release_year, genres, overiew, popularity, director_id, mubi_url, title_lang, orig_lang, runtime, adult])
-print("done with movies convert")
+#         if movie_id not in movie:
+#             movie[movie_id] = title
+#             writer.writerow([movie_id, title, release_year, genres, overiew, popularity, director_id, mubi_url, title_lang, orig_lang, runtime, adult])
+# print("done with movies convert")
 
 # CREATE TABLE users (
 #     user_id integer,
 #     profile_pic text
 # );
 
-# users = {}
-# with open('../doc/datasets/mubi_ratings_user_data.csv') as original_data_file,\
-#         open('users.csv', 'w') as users_file:
-#     reader = csv.reader(original_data_file)
-#     writer = csv.writer(users_file)
-#     heading_row = next(reader)
-#     for row in reader:
-#         user_id = row[1]
-#         pic = row[5]
+users = {}
+with open('../doc/datasets/mubi_ratings_user_data.csv') as original_data_file,\
+        open('users.csv', 'w') as users_file:
+    reader = csv.reader(original_data_file)
+    writer = csv.writer(users_file)
+    heading_row = next(reader)
+    for row in reader:
+        user_id = row[0]
+        pic = row[4]
         
-#         if user_id not in users:
-#             users[user_id] = 1
-#             writer.writerow([user_id, pic])
-# print("done with users convert")
+        if user_id not in users:
+            users[user_id] = 1
+            writer.writerow([user_id, pic])
+print("done with users convert")
 
 # # CREATE TABLE profit (
 # #     movie_id integer,

@@ -92,6 +92,14 @@ ul {
   margin: 0;
 }
 
+.bio_box {
+  float: left;
+  width: 65%;
+  height: 100%;
+  border: 3px solid gray;
+  margin: 0;
+}
+
 .movie_reviews_box {
   float: right;
   width: 30%;
@@ -127,6 +135,11 @@ ul {
   visibility: visible;
 }
 
+.bio_img {
+  float: left;
+  margin: 10px;
+}
+
 .box_label_text {
   text-align: center;
   font-size: large;
@@ -150,10 +163,6 @@ ul {
 }
 
 h1 {
-  color: white;
-}
-
-p {
   color: white;
 }
 

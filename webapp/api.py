@@ -85,10 +85,11 @@ def get_movies_dropdown(movie_string):
 @api.route('/movie_bio/<movie_id>')
 def get_movie_bio_info(movie_id):
     # genre, average_reviews
-    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview
-               FROM movies, images 
+    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue
+               FROM movies, images, profit 
                WHERE movies.id = %s
-               AND movies.id = images.movie_id;'''
+               AND movies.id = images.movie_id
+               AND movies.id = profit.movie_id;'''
     movie_bio_string = []
     try:
         connection = get_connection()
@@ -98,7 +99,14 @@ def get_movie_bio_info(movie_id):
             movie_bio = {'movie_title':row[0],
                          'release_year':row[1],
                          'image_link':row[2],
-                         'overview':row[3]
+                         'overview':row[3],
+                         'mubi_url':row[4],
+                         'title_lang':row[5],
+                         'orig_lang':row[6],
+                         'runtime':row[7],
+                         'adult':row[8],
+                         'budget':int(row[9]),
+                         'revenue':int(row[10])
                         }
             movie_bio_string.append(movie_bio)
         cursor.close()
@@ -107,29 +115,3 @@ def get_movie_bio_info(movie_id):
         print(e, file=sys.stderr)
 
     return json.dumps(movie_bio_string)
-
-# Gets movie review info
-@api.route('/reviews/<movie_id>')
-def get_review(movie_id): 
-    query = '''SELECT reviews.review_score, reviews.review_comment, reviews.users_name 
-               FROM reviews, movies 
-               WHERE reviews.movie_id = movies.id 
-               AND movies.id = %s;'''
-    review_list = []
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query, (movie_id,))
-        for row in cursor:
-            review = {'review_score':row[0],
-                      'review_comment':row[1],
-                      'users_name':row[2],
-                    }
-            review_list.append(review)
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
-
-    return json.dumps(review_list)
-

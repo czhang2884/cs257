@@ -148,8 +148,22 @@ function onMoviesClick(movie_id) {
                         + '<img class="bio_img" src="' + movie['image_link'] + '">' 
                         + '<h4 style="margin:10px">Overview</h4>'
                         + '<p style="margin:10px">' + movie['overview'] + '</p>' 
-                        + '';
+                        + '<h4 style="margin:10px">Other Info</h4>'
+                        + '<p style="margin:10px">Language of Movie Title: ' + movie['title_lang'] + '<br>'
+                        + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
+                        + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
+                        + 'Runtime: ' + movie['runtime'] + '<br>'
+                        + 'Adult Movie' + movie['adult'] + '</p>';
         }
+
+        // 'mubi_url':row[4],
+        // 'title_lang':row[5],
+        // 'orig_lang':row[6],
+        // 'runtime':row[7],
+        // 'adult':row[8],
+        // 'budget':int(row[9]),
+        // 'revenue':int(row[10])
+
         let movie_bio_box = document.getElementById('movie_bio_box');
         movie_bio_box.innerHTML = listBody;
     })

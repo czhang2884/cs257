@@ -77,30 +77,34 @@ def get_movies_dropdown(movie_string):
 
     return json.dumps(movie_list)
 
-# Get movie review for a specific movie (for popup from results page and movie bios)
+# Get movie info for a specific movie (for popup from results page and movie bios)
 # THIS HAS NOT BEEN TESTED
-@api.route('/overview/<movie_id>')
-def get_overview(movie_id):
-    query = '''SELECT movies.overview 
-               FROM movies 
-               WHERE movies.id = %s;'''
-    overview_string = ''
+@api.route('/movie_bio/<movie_id>')
+def get_movie_bio_info(movie_id):
+    # genre, average_reviews
+    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview
+               FROM movies, images 
+               WHERE movies.id = %s
+               AND movies.id = images.movie_id;'''
+    movie_bio_string = ''
     try:
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query, (movie_id,))
         for row in cursor:
-            overview = {'overview':row[0]}
-            overview_string.append(overview)
-        if overview_string == '':
-            overview_string = 'There is no overview for this movie!'
+            movie_bio = {'movie_title':row[0],
+                         'release_year':row[1],
+                         'image_link':row[2],
+                         'overview':row[3]
+                        }
+            movie_bio_string.append(movie_bio)
         cursor.close()
         connection.close()
-        print(overview_string)
+        print(movie_bio_string)
     except Exception as e:
         print(e, file=sys.stderr)
 
-    return json.dumps(overview_string)
+    return json.dumps(movie_bio_string)
 
 # Gets movie review info
 @api.route('/reviews/<movie_id>')

@@ -22,19 +22,21 @@ def get_connection():
                             password=config.password)
 
 # Movies to display on results page
-@api.route('/movies/<movie_string>')
-def get_movies(movie_string):
+@api.route('/movies/<movie_string>/<int:page>')
+def get_movies(movie_string, page):
     # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
+    offset = page * 50
     query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
                FROM movies, images 
                WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
                AND movies.id = images.movie_id 
-               ORDER BY movies.popularity DESC;'''
+               ORDER BY movies.popularity DESC
+               OFFSET %s;'''
     movie_list = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (movie_string,))
+        cursor.execute(query, (movie_string, offset))
         for row in cursor:
             movie = {'id':int(row[0]),
                       'movie_title':row[1],

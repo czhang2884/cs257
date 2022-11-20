@@ -68,18 +68,18 @@ function onMovieSubmit() {
     }
 
     // Get movies based on what user put into search box
-    onMoviesLoad(search_box_text);
+    onMoviesLoad(search_box_text, 0);
 }
 
-function onMoviesLoad(movieString) {
-    let url = getAPIBaseURL() + '/movies/' + movieString;
+function onMoviesLoad(movieString, page) {
+    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + page;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
     .then(function(movies) {
         let listBody = '<ul class="skeleton_product">';
-        for (let k = 0; k < movies.length; k++) {
+        for (let k = 0; k < movies.length && k < 50; k++) {
             let movie = movies[k];
             listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
@@ -87,11 +87,29 @@ function onMoviesLoad(movieString) {
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
         }
         listBody += '</ul>';
-        let displayUserInput = document.getElementById("display_user_input");
+        // Insert results into html
+        let displayUserInput = document.getElementById('display_user_input');
         let listMovies = document.getElementById('movies_list');
         if (listMovies) {
             displayUserInput.innerHTML = "Results for '" + movieString + "'";
             listMovies.innerHTML = listBody;
+        }
+
+        // Insert numbers into bottom of html
+        let resultsBody = '';
+        let index = movies.length / 50;
+        for (let j = 0; j < index; j++) {
+            if (j == page) {
+                resultsBody += '| ' + (j + 1) + ' '
+            } else {
+                resultsBody += '| ' + '<a href="#" onclick="onMoviesLoad("' + movieString + '", ' + j + ');return false;">' + (j + 1) + '</a>' + ' ';
+            }
+        }
+        // resultsBody += '| ' + '<a href="#" onclick="onMoviesLoad(' + movieString + ', ' + (j + 1) + ');return false;">' + (j + 1) + '</a>' + ' ';
+        resultsBody += '|'
+        let results_page_numbers = document.getElementById('results_page_numbers');
+        if (results_page_numbers) {
+            results_page_numbers.innerHTML = resultsBody;
         }
     })
 

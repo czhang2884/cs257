@@ -68,7 +68,7 @@ function onMoviesLoad(movieString) {
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
         }
         listBody += '</ul>';
-        let displayUserInput = document.getElementById("display_user_input")
+        let displayUserInput = document.getElementById("display_user_input");
         let listMovies = document.getElementById('movies_list');
         if (listMovies) {
             displayUserInput.innerHTML = "Results for '" + movieString + "'";
@@ -91,11 +91,14 @@ function onMoviesClick(movie_id) {
         let listBody = '<ul>';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
-            listBody += "Hello";
+            listBody += '<li>' + movie['movie_title'] + '</li>'
+                        + '<li>' + movie['release_year'] + '</li>'
+                        + '<li>' + movie['image_link'] + '</li>'
+                        + '<li>' + movie['overview'] + '</li>';
         }
-        listBody = '</ul>'
-        let movie_bio_info = document.getElementById('movie_bio_info');
-        movie_bio_info.innerHTML = listBody;
+        listBody += '</ul>';
+        let movie_bio_box = document.getElementById('movie_bio_box');
+        movie_bio_box.innerHTML = listBody;
     })
 
     .catch(function(error) {

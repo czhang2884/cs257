@@ -18,7 +18,7 @@ CREATE TABLE reviews (
     rating_id integer,
     user_id integer,
     movie_id integer,
-    review_score integer,
+    review_score text,
     review_comment text,
     timestamp text
 );
@@ -61,5 +61,3 @@ CREATE TABLE directors (
     name text,
     director_url text
 );
-
-

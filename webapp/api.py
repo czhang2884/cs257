@@ -86,7 +86,7 @@ def get_movie_bio_info(movie_id):
                FROM movies, images 
                WHERE movies.id = %s
                AND movies.id = images.movie_id;'''
-    movie_bio_string = ''
+    movie_bio_string = []
     try:
         connection = get_connection()
         cursor = connection.cursor()
@@ -100,7 +100,6 @@ def get_movie_bio_info(movie_id):
             movie_bio_string.append(movie_bio)
         cursor.close()
         connection.close()
-        print(movie_bio_string)
     except Exception as e:
         print(e, file=sys.stderr)
 

@@ -64,7 +64,7 @@ function onMoviesLoad(movieString) {
             let movie = movies[k];
             listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">Tooltip text</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
-                            + '</div><div class="text_movie_items"><a href="/bios" target="_blank" onclick="onMoviesClick('+ movie['id'] + ');">'
+                            + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
         }
         listBody += '</ul>';
@@ -82,22 +82,20 @@ function onMoviesLoad(movieString) {
 }
 
 function onMoviesClick(movie_id) {
-    let url = getAPIBaseURL() + '/movie_bios/' + movie_id;
+    let url = getAPIBaseURL() + '/movie_bio/' + movie_id;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
     .then(function(movies) {
-        let listBody = '<ul class="skeleton_product">';
+        let listBody = '<ul>';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
             listBody += movie;
         }
-        listBody += '</ul>';
+        listBody = '</ul>'
         let movie_bio_info = document.getElementById('movie_bio_info');
-        if (movie_bio_info) {
-            movie_bio_info.innerHTML = listBody;
-        }
+        movie_bio_info.innerHTML = listBody;
     })
 
     .catch(function(error) {
@@ -105,5 +103,8 @@ function onMoviesClick(movie_id) {
     })
 }
 
-
+function onBioLoad() {
+    queryString = window.location.pathname.replace('/bios/', '');
+    movie_bio_string = onMoviesClick(queryString);
+}
 

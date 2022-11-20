@@ -9,7 +9,7 @@
 </head>
 
 <body onload="onBioLoad()";>
-        <h2>MOVIE NAME</h2>
+        <!-- <h2>MOVIE NAME</h2>
         <div style="width: 65%">
             <div style="border-right:1px solid; float:left" id="movie_bio_info">
                 <ul>
@@ -24,22 +24,47 @@
                     </li>
                 </ul>
             </div>
+        </div -->
+
+    <div class="navbar">
+        <div class="left">
+            <a href="/" title="go back to home page">
+                <img src="../static/favicon.ico">
+            </a>
+            <h2 style="padding-left: 25px;" id="display_user_input">MOVIE NAME</h2>
         </div>
-    <div class="movie_reviews_box"> 
-        <p class="box_label_text">
-            Reviews
-        </p>
-        <ul>
-            <li>
-                Here's where the movie bios will go
-            </li>
-            <li>
-                There will be icons with links
-            </li>
-            <li>
-                We are using bullet points to show how far this box will extend
-            </li>
-        </ul>
+        <div class="right">
+            <input type="text" placeholder="New search..." name="search" id="movie_search_box2">
+            <button type="submit" id="movie_search_button2"><i class="fa fa-search"></i>Submit</button>
+        </div>
     </div>
+    <div class="main_results_box">
+        <div class="bio_box" id="movie_bio_box">
+            <p id="loading_text"></p>
+            <div>
+                <img class="bio_img" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet eget sit amet tellus cras. Urna porttitor rhoncus dolor purus non. Ultrices in iaculis nunc sed. Pellentesque habitant morbi tristique senectus et netus. Tortor dignissim convallis aenean et tortor at. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit. Amet mauris commodo quis imperdiet massa tincidunt. Morbi tempus iaculis urna id volutpat lacus laoreet non curabitur. Augue mauris augue neque gravida in fermentum et sollicitudin ac. Lacus laoreet non curabitur gravida. In aliquam sem fringilla ut morbi tincidunt. Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Eleifend quam adipiscing vitae proin.
+                </p>
+            </div>
+        </div>
+        <div class="movie_reviews_box"> 
+            <p class="box_label_text">
+                Reviews
+            </p>
+            <ul>
+                <li>
+                    Here's where the movie bios will go
+                </li>
+                <li>
+                    There will be icons with links
+                </li>
+                <li>
+                    We are using bullet points to show how far this box will extend
+                </li>
+            </ul>
+        </div>
+    </div>
+
     </body>
     </html>

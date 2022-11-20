@@ -107,4 +107,3 @@ function onBioLoad() {
     queryString = window.location.pathname.replace('/bios/', '');
     movie_bio_string = onMoviesClick(queryString);
 }
-

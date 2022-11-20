@@ -102,7 +102,7 @@ function onMoviesLoad(movieString, page) {
             if (j == page) {
                 resultsBody += '| ' + (j + 1) + ' '
             } else {
-                resultsBody += '| ' + '<a href="#" onclick="onMoviesLoad("' + movieString + '", ' + j + ');return false;">' + (j + 1) + '</a>' + ' ';
+                resultsBody += "| " + '<a href="#" onclick="onMoviesLoad(\'' + movieString + '\', \'' + j + '\');">' + (j + 1) + '</a>' + ' ';
             }
         }
         // resultsBody += '| ' + '<a href="#" onclick="onMoviesLoad(' + movieString + ', ' + (j + 1) + ');return false;">' + (j + 1) + '</a>' + ' ';

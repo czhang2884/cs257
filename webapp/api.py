@@ -25,7 +25,7 @@ def get_connection():
 @api.route('/movies/<movie_string>')
 def get_movies(movie_string):
     # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
-    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link 
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
                FROM movies, images 
                WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
                AND movies.id = images.movie_id 
@@ -39,7 +39,8 @@ def get_movies(movie_string):
             movie = {'id':int(row[0]),
                       'movie_title':row[1],
                       'release_year':row[2],
-                      'image_link':row[3]
+                      'image_link':row[3],
+                      'overview':row[4]
                     }
             movie_list.append(movie)
         cursor.close()

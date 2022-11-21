@@ -115,3 +115,25 @@ def get_movie_bio_info(movie_id):
         print(e, file=sys.stderr)
 
     return json.dumps(movie_bio_string)
+
+@api.route('directors/<int:director_id>')
+def get_director(director_id):
+    query = '''SELECT directors.name, directors.director_url
+               FROM directors
+               WHERE directors.id = %s;'''
+    director_array = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (director_id,))
+        for row in cursor:
+            directors = {'name':row[0],
+                         'director_url':row[1]
+                        }
+            director_array.append(directors)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(director_array)

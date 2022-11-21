@@ -76,7 +76,7 @@ ul {
   margin: 0;
 }
 
-.movie_reviews_box {
+.movie_directors_box {
   float: right;
   width: 30%;
   height: 100%;
@@ -117,7 +117,6 @@ ul {
 
 .box_label_text {
   text-align: center;
-  font-size: large;
 }
 
 .movie_items {

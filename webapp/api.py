@@ -24,7 +24,6 @@ def get_connection():
 # Movies to display on results page
 @api.route('/movies/<movie_string>/<int:page>')
 def get_movies(movie_string, page):
-    print("HELLLLLLLLLOOOO1")
     offset = page * 50
     query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
                FROM movies, images 
@@ -45,20 +44,17 @@ def get_movies(movie_string, page):
                       'overview':row[4]
                     }
             movie_list.append(movie)
-        print("length:" + str(len(movie_list)))
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
 
-    print("HELLLLLLLLLOOOO2")
 
     return json.dumps(movie_list)
 
 # Get movie info for a specific movie
 @api.route('/movie_bio/<movie_id>')
 def get_movie_bio_info(movie_id):
-    print("HELLLLLLLLLOOOO3")
     query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue, movies.director_id, movies.genre
                FROM movies, images, profit 
                WHERE movies.id = %s
@@ -90,14 +86,11 @@ def get_movie_bio_info(movie_id):
     except Exception as e:
         print(e, file=sys.stderr)
 
-    print("HELLLLLLLLLOOOO4")
-
     return json.dumps(movie_bio_string)
 
 # Get director given ID
 @api.route('directors/<int:director_id>')
 def get_director(director_id):
-    print("HELLLLLLLLLOOOO5")
     query = '''SELECT directors.name, directors.director_url
                FROM directors
                WHERE directors.id = %s;'''
@@ -111,19 +104,16 @@ def get_director(director_id):
                          'director_url':row[1]
                         }
             director_array.append(directors)
-        print(director_array)
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-
-    print("HELLLLLLLLLOOOO6")    
+   
     
     return json.dumps(director_array)
 
 @api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<genres>/<int:page>')
 def get_movies_filters(movie_string, start_year, end_year, genres, page):
-    print("HELLLLLLLLLOOOO7")
     # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
     offset = page * 50
     query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.genre
@@ -136,10 +126,6 @@ def get_movies_filters(movie_string, start_year, end_year, genres, page):
                ORDER BY movies.popularity DESC
                OFFSET %s;'''
     movie_list = []
-    print(type(movie_string))
-    print(type(start_year))
-    print(type(end_year))
-    print(type(genres))
     try:
         connection = get_connection()
         cursor = connection.cursor()
@@ -158,8 +144,6 @@ def get_movies_filters(movie_string, start_year, end_year, genres, page):
 
     except Exception as e:
         print(e, file=sys.stderr)
-    
-    print("HELLLLLLLLLOOOO8")
 
     return json.dumps(movie_list)
 

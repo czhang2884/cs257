@@ -156,7 +156,6 @@ function onFilterChange() {
 
 
 function onMoviesFiltersLoad(movieString, start_year, end_year, genres, page) {
-    alert("HEEEERRRREEEE")
     let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + genres + '/' + page;
     fetch(url, {method: 'get'})
 
@@ -335,27 +334,6 @@ function getDirectors(director_id) {
         console.log(error);
     })
 }
-
-// function getGenres(genre_id) {
-//     let url = getAPIBaseURL() + '/genres/' + genre_id;
-//     fetch(url, {method: 'get'})
-
-//     .then((response) => response.json())
-
-//     .then(function(genres) {
-//         let listBody = '';
-//         for (let k = 0; k < directors.length; k++) {
-//             let director = directors[k];
-//             listBody += '<li><a href="' + director['director_url'] + '" target="_blank">' + director['name'] + "</a></li>";
-//         }
-//         let directors_list = document.getElementById('directors_list');
-//         directors_list.insertAdjacentHTML('beforeend', listBody);
-//     })
-
-//     .catch(function(error) {
-//         console.log(error);
-//     })
-// }
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */

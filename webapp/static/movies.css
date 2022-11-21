@@ -167,7 +167,7 @@ ul {
 }
 
 
-.vertical-menu {
+/* .vertical-menu {
   width: 200px;
 }
 
@@ -186,7 +186,7 @@ ul {
 .vertical-menu a.active {
   background-color: #04AA6D;
   color: white;
-}
+} */
 
 /* Dropdown Button */
 .dropbtn {

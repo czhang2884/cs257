@@ -43,14 +43,6 @@
   margin: 0 auto;
 }
 
-.center {
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
 ul {  
   list-style-type: none;  
   font-weight: bold; 

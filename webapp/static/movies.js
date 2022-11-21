@@ -143,13 +143,9 @@ function onMoviesClick(movie_id) {
         let listBody = '';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
-            let director_id_array = movie['director_id'].split(", ")
-            let director_names = '';
-            let director_urls = '';
+            let director_id_array = movie['director_id'].split(", ");
             for (let m = 0; m < director_id_array.length; m++) {
-                director__dictionary = getDirectors(director_id_array[m])
-                // director_names += director__dictionary['name']
-                // director_urls += director__dictionary['director_url']
+                getDirectors(director_id_array[m]);
             }
             listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>' 
                         + '<h2 style="margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
@@ -161,7 +157,7 @@ function onMoviesClick(movie_id) {
                         + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
                         + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
                         + 'Runtime: ' + movie['runtime'] + '<br>'
-                        + 'Adult Movie' + movie['adult'] + '</p>';
+                        + 'Adult Movie' + movie['adult'] + director_names + '</p>';
         }
 
         // 'mubi_url':row[4],
@@ -174,8 +170,6 @@ function onMoviesClick(movie_id) {
 
         let movie_bio_box = document.getElementById('movie_bio_box');
         movie_bio_box.innerHTML = listBody;
-
-
     })
 
     .catch(function(error) {
@@ -200,9 +194,9 @@ function getDirectors(director_id) {
         let listBody = '';
         for (let k = 0; k < directors.length; k++) {
             let director = directors[k];
-            listBody += director['name'] + director['director_url'];
+            listBody += director['name'] + ", " + director['director_url'];
         }
-
+        
         return listBody;
     })
 

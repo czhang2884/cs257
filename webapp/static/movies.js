@@ -140,25 +140,48 @@ function onMoviesClick(movie_id) {
     // })
 
     .then(function(movies) {
-        let listBody = '';
-        for (let k = 0; k < movies.length; k++) {
-            let movie = movies[k];
-            let director_id_array = movie['director_id'].split(", ");
-            for (let m = 0; m < director_id_array.length; m++) {
-                getDirectors(director_id_array[m]);
-            }
-            listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>' 
-                        + '<h2 style="margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
-                        + '<img class="bio_img" src="' + movie['image_link'] + '">' 
-                        + '<h4 style="margin:10px">Overview</h4>'
-                        + '<p style="margin:10px">' + movie['overview'] + '</p>' 
-                        + '<h4 style="margin:10px">Other Info</h4>'
-                        + '<p style="margin:10px">Language of Movie Title: ' + movie['title_lang'] + '<br>'
-                        + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
-                        + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
-                        + 'Runtime: ' + movie['runtime'] + '<br>'
-                        + 'Adult Movie' + movie['adult'] + '</p>';
+        let movie = movies[0];
+        let director_id_array = movie['director_id'].split(", ");
+        for (let m = 0; m < director_id_array.length; m++) {
+            getDirectors(director_id_array[m]);
         }
+
+        // Text for movie_bio_box
+        let listBody = '<h1 style="margin:10px; text-align:center">' + movie['movie_title'] + '</h1>' 
+                    + '<h2 style="margin:10px; text-align:center">Release Year: ' + movie['release_year'] + '</h2>' 
+                    + '<img class="bio_img" src="' + movie['image_link'] + '">' 
+                    + '<h4 style="margin:10px">Overview</h4>'
+                    + '<p style="margin:10px">' + movie['overview'] + '</p>' 
+        let movie_bio_box = document.getElementById('movie_bio_box');
+        movie_bio_box.innerHTML = listBody;
+
+        // Text for budget
+        let budgetBody = '<li>' + movie['budget'] + '</li>';
+        let budgetList = document.getElementById('budget_list');
+        budgetList.innerHTML = budgetBody;
+
+        // Text for revenue
+        let revenueBody = '<li>' + movie['revenue'] + '</li>';
+        let revenueList = document.getElementById('revenue_list');
+        revenueList.innerHTML = revenueBody;
+
+        // Text for runtime
+        let runtimeBody = '<li>' + movie['runtime'] + ' minutes</li>';
+        let runtimeList = document.getElementById('runtime_list');
+        runtimeList.innerHTML = runtimeBody;
+
+
+        // listBody += '<h1 style="margin:10px; text-align:center">' + movie['movie_title'] + '</h1>' 
+        // + '<h2 style="margin:10px; text-align:center">Release Year: ' + movie['release_year'] + '</h2>' 
+        // + '<img class="bio_img" src="' + movie['image_link'] + '">' 
+        // + '<h4 style="margin:10px">Overview</h4>'
+        // + '<p style="margin:10px">' + movie['overview'] + '</p>' 
+        // + '<h4 style="margin:10px">Other Info</h4>'
+        // + '<p style="margin:10px">Language of Movie Title: ' + movie['title_lang'] + '<br>'
+        // + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
+        // + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
+        // + 'Runtime: ' + movie['runtime'] + '<br>'
+        // + 'Adult Movie' + movie['adult'] + '</p>';
 
         // 'mubi_url':row[4],
         // 'title_lang':row[5],
@@ -168,8 +191,6 @@ function onMoviesClick(movie_id) {
         // 'budget':int(row[9]),
         // 'revenue':int(row[10])
 
-        let movie_bio_box = document.getElementById('movie_bio_box');
-        movie_bio_box.innerHTML = listBody;
     })
 
     .catch(function(error) {
@@ -194,7 +215,7 @@ function getDirectors(director_id) {
         let listBody = '';
         for (let k = 0; k < directors.length; k++) {
             let director = directors[k];
-            listBody += '<li><a href="' + director['director_url'] + '">' + director['name'] + "</a>";
+            listBody += '<li><a href="' + director['director_url'] + '" target="_blank">' + director['name'] + "</a></li>";
         }
         let directors_list = document.getElementById('directors_list');
         directors_list.insertAdjacentHTML('beforeend', listBody);

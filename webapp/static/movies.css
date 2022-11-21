@@ -45,10 +45,6 @@ ul {
   flex-wrap: wrap;
 }
 
-.item_padding {
-  padding-bottom: 5px;
-}
-
 .text_movie_items{
   text-align: center;
   width: 180px;

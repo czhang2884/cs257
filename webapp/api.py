@@ -121,37 +121,36 @@ def get_director(director_id):
     
     return json.dumps(director_array)
 
-@api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<genres>/<int:adult>/<int:page>')
-def get_movies_filters(movie_string, start_year, end_year, genres, adult, page):
+@api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<genres>/<int:page>')
+def get_movies_filters(movie_string, start_year, end_year, genres, page):
     print("HELLLLLLLLLOOOO7")
     # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
     offset = page * 50
-    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.genre, movies.adult
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.genre
                FROM movies, images
                WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.genre ILIKE CONCAT('%%', %s, '%%') 
                AND movies.release_year >= %s
                AND movies.release_year <= %s
                AND movies.id = images.movie_id
-               AND movies.adult = %s
                ORDER BY movies.popularity DESC
                OFFSET %s;'''
     movie_list = []
     print(type(movie_string))
     print(type(start_year))
     print(type(end_year))
-    print(type(adult))
+    print(type(genres))
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (movie_string, start_year, end_year, adult, offset))
+        cursor.execute(query, (movie_string, genres, start_year, end_year, offset))
         for row in cursor:
             movie = {'id':int(row[0]),
                       'movie_title':row[1],
                       'release_year':row[2],
                       'image_link':row[3],
                       'overview':row[4],
-                      'genres':row[5],
-                      'adult':row[6]
+                      'genres':row[5]
                     }
             movie_list.append(movie)
         cursor.close()

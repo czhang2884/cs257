@@ -147,20 +147,17 @@ function onFilterChange() {
     }
     if (document.getElementById("tvm").checked) {
         genres.push(10770);
-    }
-    if (document.getElementById("adult").checked) {
-        adult = 1;
     } else {
-        adult = 0;
+        genres.push(' ');
     }
 
-    onMoviesFiltersLoad(search_box_text, start_year, end_year, genres, adult, 0)
+    onMoviesFiltersLoad(search_box_text, start_year, end_year, genres, 0)
 }
 
 
-function onMoviesFiltersLoad(movieString, start_year, end_year, genres, adult, page) {
+function onMoviesFiltersLoad(movieString, start_year, end_year, genres, page) {
     alert("HEEEERRRREEEE")
-    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + genres + '/' + adult + '/' + page;
+    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + genres + '/' + page;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
@@ -169,7 +166,7 @@ function onMoviesFiltersLoad(movieString, start_year, end_year, genres, adult, p
         let listBody = '<ul class="skeleton_product">';
         for (let k = 0; k < movies.length && k < 50; k++) {
             let movie = movies[k];
-            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '<br>' + movie['genres'] + movie['adult']+ '</span>'
+            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '<br>' + '</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
                             + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
@@ -178,6 +175,8 @@ function onMoviesFiltersLoad(movieString, start_year, end_year, genres, adult, p
         // Insert results into html
         let displayUserInput = document.getElementById('display_user_input');
         let listMovies = document.getElementById('movies_list');
+        let count = document.getElementById('movie_count');
+        count.innerText = 'Movies (' + movies.length + ')';
         if (listMovies) {
             displayUserInput.innerHTML = "Results for '" + movieString + "'";
             listMovies.innerHTML = listBody;
@@ -190,7 +189,7 @@ function onMoviesFiltersLoad(movieString, start_year, end_year, genres, adult, p
             if (j == page) {
                 resultsBody += '| ' + (j + 1) + ' '
             } else {
-                resultsBody += "| " + '<a href="#" onclick="onMoviesFiltersLoad(\'' + movieString + '\',' + start_year + ',' + end_year + ',' + genres + ',' + adult + ',' + '\'' + j + '\');">' + (j + 1) + '</a>' + ' ';
+                resultsBody += "| " + '<a href="#" onclick="onMoviesFiltersLoad(\'' + movieString + '\',' + start_year + ',' + end_year + ',' + genres + ',' + '\'' + j + '\');">' + (j + 1) + '</a>' + ' ';
             }
         }
         resultsBody += '|'
@@ -225,6 +224,8 @@ function onMoviesLoad(movieString, page) {
         // Insert results into html
         let displayUserInput = document.getElementById('display_user_input');
         let listMovies = document.getElementById('movies_list');
+        let count = document.getElementById('movie_count');
+        count.innerText = 'Movies (' + movies.length + ')';
         if (listMovies) {
             displayUserInput.innerHTML = "Results for '" + movieString + "'";
             listMovies.innerHTML = listBody;

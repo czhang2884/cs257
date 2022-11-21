@@ -157,7 +157,7 @@ function onMoviesClick(movie_id) {
                         + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
                         + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
                         + 'Runtime: ' + movie['runtime'] + '<br>'
-                        + 'Adult Movie' + movie['adult'] + director_names + '</p>';
+                        + 'Adult Movie' + movie['adult'] + '</p>';
         }
 
         // 'mubi_url':row[4],
@@ -194,10 +194,10 @@ function getDirectors(director_id) {
         let listBody = '';
         for (let k = 0; k < directors.length; k++) {
             let director = directors[k];
-            listBody += director['name'] + ", " + director['director_url'];
+            listBody += '<li><a href="' + director['director_url'] + '">' + director['name'] + "</a>";
         }
-        
-        return listBody;
+        let directors_list = document.getElementById('directors_list');
+        directors_list.insertAdjacentHTML('beforeend', listBody);
     })
 
     .catch(function(error) {

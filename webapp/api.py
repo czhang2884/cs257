@@ -106,7 +106,8 @@ def get_movie_bio_info(movie_id):
                          'runtime':row[7],
                          'adult':row[8],
                          'budget':int(row[9]),
-                         'revenue':int(row[10])
+                         'revenue':int(row[10]),
+                         'director_id':row[11]
                         }
             movie_bio_string.append(movie_bio)
         cursor.close()
@@ -135,5 +136,5 @@ def get_director(director_id):
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-
+        
     return json.dumps(director_array)

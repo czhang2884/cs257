@@ -143,6 +143,14 @@ function onMoviesClick(movie_id) {
         let listBody = '';
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
+            let director_id_array = movie['director_id'].split(", ")
+            let director_names = '';
+            let director_urls = '';
+            for (let m = 0; m < director_id_array.length; m++) {
+                director__dictionary = getDirectors(director_id_array[m])
+                // director_names += director__dictionary['name']
+                // director_urls += director__dictionary['director_url']
+            }
             listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>' 
                         + '<h2 style="margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
                         + '<img class="bio_img" src="' + movie['image_link'] + '">' 
@@ -166,6 +174,8 @@ function onMoviesClick(movie_id) {
 
         let movie_bio_box = document.getElementById('movie_bio_box');
         movie_bio_box.innerHTML = listBody;
+
+
     })
 
     .catch(function(error) {
@@ -177,4 +187,26 @@ function onMoviesClick(movie_id) {
 function onBioLoad() {
     queryString = window.location.pathname.replace('/bios/', '');
     movie_bio_string = onMoviesClick(queryString);
+}
+
+// Get directors
+function getDirectors(director_id) {
+    let url = getAPIBaseURL() + '/directors/' + director_id;
+    fetch(url, {method: 'get'})
+
+    .then((response) => response.json())
+
+    .then(function(directors) {
+        let listBody = '';
+        for (let k = 0; k < directors.length; k++) {
+            let director = directors[k];
+            listBody += director['name'] + director['director_url'];
+        }
+
+        return listBody;
+    })
+
+    .catch(function(error) {
+        console.log(error);
+    })
 }

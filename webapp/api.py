@@ -24,6 +24,7 @@ def get_connection():
 # Movies to display on results page
 @api.route('/movies/<movie_string>/<int:page>')
 def get_movies(movie_string, page):
+    print("HELLLLLLLLLOOOO1")
     offset = page * 50
     query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
                FROM movies, images 
@@ -44,17 +45,21 @@ def get_movies(movie_string, page):
                       'overview':row[4]
                     }
             movie_list.append(movie)
+        print("length:" + str(len(movie_list)))
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
+
+    print("HELLLLLLLLLOOOO2")
 
     return json.dumps(movie_list)
 
 # Get movie info for a specific movie
 @api.route('/movie_bio/<movie_id>')
 def get_movie_bio_info(movie_id):
-    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue, movies.director_id
+    print("HELLLLLLLLLOOOO3")
+    query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue, movies.director_id, movies.genre
                FROM movies, images, profit 
                WHERE movies.id = %s
                AND movies.id = images.movie_id
@@ -76,7 +81,8 @@ def get_movie_bio_info(movie_id):
                          'adult':row[8],
                          'budget':int(row[9]),
                          'revenue':int(row[10]),
-                         'director_id':row[11]
+                         'director_id':row[11],
+                         'genre':eval(row[12])
                         }
             movie_bio_string.append(movie_bio)
         cursor.close()
@@ -84,11 +90,14 @@ def get_movie_bio_info(movie_id):
     except Exception as e:
         print(e, file=sys.stderr)
 
+    print("HELLLLLLLLLOOOO4")
+
     return json.dumps(movie_bio_string)
 
 # Get director given ID
 @api.route('directors/<int:director_id>')
 def get_director(director_id):
+    print("HELLLLLLLLLOOOO5")
     query = '''SELECT directors.name, directors.director_url
                FROM directors
                WHERE directors.id = %s;'''
@@ -107,41 +116,51 @@ def get_director(director_id):
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-        
+
+    print("HELLLLLLLLLOOOO6")    
+    
     return json.dumps(director_array)
 
-@api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<int:page>')
-def get_movies_filters(movie_string, start_year, end_year, page):
-    print(movie_string)
-    print(start_year)
-    print(end_year)
-    print(page)
+@api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<genres>/<int:adult>/<int:page>')
+def get_movies_filters(movie_string, start_year, end_year, genres, adult, page):
+    print("HELLLLLLLLLOOOO7")
     # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
     offset = page * 50
-    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
-               FROM movies, images 
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.genre, movies.adult
+               FROM movies, images
                WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
                AND movies.release_year >= %s
                AND movies.release_year <= %s
-               AND movies.id = images.movie_id 
+               AND movies.id = images.movie_id
+               AND movies.adult = %s
                ORDER BY movies.popularity DESC
                OFFSET %s;'''
     movie_list = []
+    print(type(movie_string))
+    print(type(start_year))
+    print(type(end_year))
+    print(type(adult))
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, (movie_string, start_year, end_year, offset))
+        cursor.execute(query, (movie_string, start_year, end_year, adult, offset))
         for row in cursor:
             movie = {'id':int(row[0]),
                       'movie_title':row[1],
                       'release_year':row[2],
                       'image_link':row[3],
-                      'overview':row[4]
+                      'overview':row[4],
+                      'genres':row[5],
+                      'adult':row[6]
                     }
             movie_list.append(movie)
         cursor.close()
         connection.close()
+
     except Exception as e:
         print(e, file=sys.stderr)
+    
+    print("HELLLLLLLLLOOOO8")
 
     return json.dumps(movie_list)
+

@@ -23,11 +23,11 @@ function initialize() {
     let movie_input2 = document.getElementById('movie_search_box2');
     movie_input2.addEventListener("keypress", onEnterPressedSub);
 
-    let test1_filter = document.getElementById('test1');
-    test1_filter.onclick = onFilterChange;
+    let submit_year_filter = document.getElementById('submit_year');
+    submit_year_filter.onclick = onFilterChange;
 
-    let test2_filter = document.getElementById('test2');
-    test2_filter.onclick = onFilterChange;
+    let submit_genre_filter = document.getElementById('submit_genre');
+    submit_genre_filter.onclick = onFilterChange;
 
 }
 
@@ -83,17 +83,84 @@ function onFilterChange() {
         start_year = 0;
     }
     let end_year = document.getElementById("filter_end_year").value;
-    alert(end_year)
     if (end_year === '') {
         end_year = 3000;
     }
-    onMoviesFiltersLoad(search_box_text, start_year, end_year, 0)
-    alert("hi")
+
+    var genres = []
+    if (document.getElementById("sci").checked) {
+        genres.push(878);
+    }
+    if (document.getElementById("dra").checked) {
+        genres.push(18);
+    }
+    if (document.getElementById("act").checked) {
+        genres.push(28);
+    }
+    if (document.getElementById("adv").checked) {
+        genres.push(12);
+    }
+    if (document.getElementById("com").checked) {
+        genres.push(35);
+    }
+    if (document.getElementById("mys").checked) {
+        genres.push(9648);
+    }
+    if (document.getElementById("rom").checked) {
+        genres.push(10749);
+    }
+    if (document.getElementById("ani").checked) {
+        genres.push(16);
+    }
+    if (document.getElementById("fan").checked) {
+        genres.push(14);
+    }
+    if (document.getElementById("doc").checked) {
+        genres.push(99);
+    }
+    if (document.getElementById("thr").checked) {
+        genres.push(53);
+    }
+    if (document.getElementById("for").checked) {
+        genres.push(10769);
+    }
+    if (document.getElementById("cri").checked) {
+        genres.push(80);
+    }
+    if (document.getElementById("his").checked) {
+        genres.push(36);
+    }
+    if (document.getElementById("wes").checked) {
+        genres.push(37);
+    }
+    if (document.getElementById("hor").checked) {
+        genres.push(27);
+    }
+    if (document.getElementById("war").checked) {
+        genres.push(10752);
+    }
+    if (document.getElementById("fam").checked) {
+        genres.push(10751);
+    }
+    if (document.getElementById("mus").checked) {
+        genres.push(10402);
+    }
+    if (document.getElementById("tvm").checked) {
+        genres.push(10770);
+    }
+    if (document.getElementById("adult").checked) {
+        adult = 1;
+    } else {
+        adult = 0;
+    }
+
+    onMoviesFiltersLoad(search_box_text, start_year, end_year, genres, adult, 0)
 }
 
 
-function onMoviesFiltersLoad(movieString, start_year, end_year, page) {
-    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + page;
+function onMoviesFiltersLoad(movieString, start_year, end_year, genres, adult, page) {
+    alert("HEEEERRRREEEE")
+    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + genres + '/' + adult + '/' + page;
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
@@ -102,7 +169,7 @@ function onMoviesFiltersLoad(movieString, start_year, end_year, page) {
         let listBody = '<ul class="skeleton_product">';
         for (let k = 0; k < movies.length && k < 50; k++) {
             let movie = movies[k];
-            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '</span>'
+            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '<br>' + movie['genres'] + movie['adult']+ '</span>'
                             + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
                             + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
                             + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
@@ -119,11 +186,11 @@ function onMoviesFiltersLoad(movieString, start_year, end_year, page) {
         // Insert numbers into bottom of html
         let resultsBody = '';
         let index = movies.length / 50;
-        for (let j = 0; j < index; j++) {
+        for (let j = 0; j < parseFloat(index)+parseFloat(page); j++) {
             if (j == page) {
                 resultsBody += '| ' + (j + 1) + ' '
             } else {
-                resultsBody += "| " + '<a href="#" onclick="onMoviesLoad(\'' + movieString + '\',' + start_year + ',' + end_year + ',' + ' + j + '\');">' + (j + 1) + '</a>' + ' ';
+                resultsBody += "| " + '<a href="#" onclick="onMoviesFiltersLoad(\'' + movieString + '\',' + start_year + ',' + end_year + ',' + genres + ',' + adult + ',' + '\'' + j + '\');">' + (j + 1) + '</a>' + ' ';
             }
         }
         resultsBody += '|'
@@ -166,7 +233,7 @@ function onMoviesLoad(movieString, page) {
         // Insert numbers into bottom of html
         let resultsBody = '';
         let index = movies.length / 50;
-        for (let j = 0; j < index; j++) {
+        for (let j = 0; j < parseFloat(index)+parseFloat(page); j++) {
             if (j == page) {
                 resultsBody += '| ' + (j + 1) + ' '
             } else {
@@ -268,5 +335,30 @@ function getDirectors(director_id) {
     })
 }
 
+// function getGenres(genre_id) {
+//     let url = getAPIBaseURL() + '/genres/' + genre_id;
+//     fetch(url, {method: 'get'})
 
+//     .then((response) => response.json())
+
+//     .then(function(genres) {
+//         let listBody = '';
+//         for (let k = 0; k < directors.length; k++) {
+//             let director = directors[k];
+//             listBody += '<li><a href="' + director['director_url'] + '" target="_blank">' + director['name'] + "</a></li>";
+//         }
+//         let directors_list = document.getElementById('directors_list');
+//         directors_list.insertAdjacentHTML('beforeend', listBody);
+//     })
+
+//     .catch(function(error) {
+//         console.log(error);
+//     })
+// }
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
 

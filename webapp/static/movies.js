@@ -23,6 +23,12 @@ function initialize() {
     let movie_input2 = document.getElementById('movie_search_box2');
     movie_input2.addEventListener("keypress", onEnterPressedSub);
 
+    let test1_filter = document.getElementById('test1');
+    test1_filter.onclick = onFilterChange;
+
+    let test2_filter = document.getElementById('test2');
+    test2_filter.onclick = onFilterChange;
+
 }
 
 // Enter press for main search
@@ -71,6 +77,68 @@ function onMovieSubmit() {
     onMoviesLoad(search_box_text, 0);
 }
 
+function onFilterChange() {
+    let start_year = document.getElementById("filter_start_year").value;
+    if (start_year === '') {
+        start_year = 0;
+    }
+    let end_year = document.getElementById("filter_end_year").value;
+    alert(end_year)
+    if (end_year === '') {
+        end_year = 3000;
+    }
+    onMoviesFiltersLoad(search_box_text, start_year, end_year, 0)
+    alert("hi")
+}
+
+
+function onMoviesFiltersLoad(movieString, start_year, end_year, page) {
+    let url = getAPIBaseURL() + '/movies/' + movieString + '/' + start_year + '/' + end_year + '/' + page;
+    fetch(url, {method: 'get'})
+
+    .then((response) => response.json())
+
+    .then(function(movies) {
+        let listBody = '<ul class="skeleton_product">';
+        for (let k = 0; k < movies.length && k < 50; k++) {
+            let movie = movies[k];
+            listBody += '<li class="movie_items"><div class="movie_item_box"><span class="popuptext">' + movie['overview'] + '</span>'
+                            + '<img class="img_movie_items" src="' + movie['image_link'] + '">'
+                            + '</div><div class="text_movie_items"><a href="/bios/' + movie['id'] + '" target="_blank">'
+                            + movie['movie_title'] + '</a> ' + movie['release_year'] + '</div></li>';
+        }
+        listBody += '</ul>';
+        // Insert results into html
+        let displayUserInput = document.getElementById('display_user_input');
+        let listMovies = document.getElementById('movies_list');
+        if (listMovies) {
+            displayUserInput.innerHTML = "Results for '" + movieString + "'";
+            listMovies.innerHTML = listBody;
+        }
+
+        // Insert numbers into bottom of html
+        let resultsBody = '';
+        let index = movies.length / 50;
+        for (let j = 0; j < index; j++) {
+            if (j == page) {
+                resultsBody += '| ' + (j + 1) + ' '
+            } else {
+                resultsBody += "| " + '<a href="#" onclick="onMoviesLoad(\'' + movieString + '\',' + start_year + ',' + end_year + ',' + ' + j + '\');">' + (j + 1) + '</a>' + ' ';
+            }
+        }
+        resultsBody += '|'
+        let results_page_numbers = document.getElementById('results_page_numbers');
+        if (results_page_numbers) {
+            results_page_numbers.innerHTML = resultsBody;
+        }
+    })
+
+    .catch(function(error) {
+        console.log(error);
+    })
+}
+
+
 function onMoviesLoad(movieString, page) {
     let url = getAPIBaseURL() + '/movies/' + movieString + '/' + page;
     fetch(url, {method: 'get'})
@@ -117,6 +185,7 @@ function onMoviesLoad(movieString, page) {
         console.log(error);
     })
 }
+
 
 // Displays movie info on bio page
 function onMoviesClick(movie_id) {
@@ -225,3 +294,6 @@ function getDirectors(director_id) {
         console.log(error);
     })
 }
+
+
+

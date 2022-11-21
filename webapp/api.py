@@ -139,3 +139,39 @@ def get_director(director_id):
     print("HOWDCQEOQWCJQCNJBEIOJCWHJEIJCQWBHWOEICRWFHJROIWHJ")
         
     return json.dumps(director_array)
+
+@api.route('/movies/<movie_string>/<int:start_year>/<int:end_year>/<int:page>')
+def get_movies_filters(movie_string, start_year, end_year, page):
+    print(movie_string)
+    print(start_year)
+    print(end_year)
+    print(page)
+    # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
+    offset = page * 50
+    query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
+               FROM movies, images 
+               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
+               AND movies.release_year >= %s
+               AND movies.release_year <= %s
+               AND movies.id = images.movie_id 
+               ORDER BY movies.popularity DESC
+               OFFSET %s;'''
+    movie_list = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (movie_string, start_year, end_year, offset))
+        for row in cursor:
+            movie = {'id':int(row[0]),
+                      'movie_title':row[1],
+                      'release_year':row[2],
+                      'image_link':row[3],
+                      'overview':row[4]
+                    }
+            movie_list.append(movie)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(movie_list)

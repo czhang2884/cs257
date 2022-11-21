@@ -2,7 +2,7 @@
     api.py
     Adapted from api.py by Jeff Ondich
     Authors: Carl Zhang and Alex Falk
-    9 Nov 2022
+    20 Nov 2022
 
 '''
 import sys
@@ -24,7 +24,6 @@ def get_connection():
 # Movies to display on results page
 @api.route('/movies/<movie_string>/<int:page>')
 def get_movies(movie_string, page):
-    # QUERY WILL INCLUDE MORE DATA (average_reviews, genres?)
     offset = page * 50
     query = '''SELECT movies.id, movies.movie_title, movies.release_year, images.image_link, movies.overview 
                FROM movies, images 
@@ -52,39 +51,9 @@ def get_movies(movie_string, page):
 
     return json.dumps(movie_list)
 
-# Specific database for dropdown menu (title and picture)
-# HAS NOT BEEN TESTED
-@api.route('/movies_dropdown/<movie_string>')
-def get_movies_dropdown(movie_string):
-    query = '''SELECT movies.id movies.movie_title, movies.release_year, images.image_link 
-               FROM movies, images 
-               WHERE movies.movie_title ILIKE CONCAT('%%', %s, '%%') 
-               AND movies.id = images.movie_id 
-               ORDER BY movies.popularity LIMIT 5;'''
-    movie_list = []
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(query, (movie_string,))
-        for row in cursor:
-            movie = {'id':int(row[0]),
-                      'movie_title':row[1],
-                      'release_year':row[2],
-                      'image_link':row[3]
-                    }
-            movie_list.append(movie)
-        cursor.close()
-        connection.close()
-    except Exception as e:
-        print(e, file=sys.stderr)
-
-    return json.dumps(movie_list)
-
-# Get movie info for a specific movie (for popup from results page and movie bios)
-# THIS HAS NOT BEEN TESTED
+# Get movie info for a specific movie
 @api.route('/movie_bio/<movie_id>')
 def get_movie_bio_info(movie_id):
-    # genre, average_reviews
     query = '''SELECT movies.movie_title, movies.release_year, images.image_link, movies.overview, movies.mubi_url, movies.title_lang, movies.orig_lang, movies.runtime, movies.adult, profit.budget, profit.revenue, movies.director_id
                FROM movies, images, profit 
                WHERE movies.id = %s
@@ -117,6 +86,7 @@ def get_movie_bio_info(movie_id):
 
     return json.dumps(movie_bio_string)
 
+# Get director given ID
 @api.route('directors/<int:director_id>')
 def get_director(director_id):
     query = '''SELECT directors.name, directors.director_url
@@ -132,10 +102,10 @@ def get_director(director_id):
                          'director_url':row[1]
                         }
             director_array.append(directors)
+        print(director_array)
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-    print("HOWDCQEOQWCJQCNJBEIOJCWHJEIJCQWBHWOEICRWFHJROIWHJ")
         
     return json.dumps(director_array)

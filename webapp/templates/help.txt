@@ -1,49 +1,81 @@
-REQUEST: /movies \n
-
-GET parameters\n
-    search_text (Optional, default: '') -- return movies whose
-        titles contain search_text, case-insensitively
-
-RESPONSE: a JSON list of dictionaries, each of which represents one
-movie Each dictionary in this list will have the following fields:
-
-   movie_title -- (TEXT) the title of the movie
-   publication_year -- (INTEGER) year the movie was published
-
-EXAMPLE:
-    /movies?search_text=in
-
-       [{"movie_title":"Inside Out", "publication_year":"2015"},
-        {"movie_title":"How to Train Your Dragon", "publication_year":"2010"}]
-
-########################### FEATURES TO IMPLEMENT: ###########################
-
-REQUEST: /movies
+REQUEST: /movies/<movie_string>/<int:page>
 
 GET parameters
-    search_text (Optional, default: '') -- return movies whose
+    search_text -- return movies whose
         titles contain search_text, case-insensitively
-
-    year (Optional, default: movies from all publication 
-        years) -- return movies whose publication year follow 
-        the specified year constraints, for ex. after 2010
-
-    rating (Optional, default: movies of all ratings) -- return 
-    movies whose ratings follow the specified rating constraints,
-    for ex. above 3 stars.
+    page -- value by which to offset results
 
 RESPONSE: a JSON list of dictionaries, each of which represents one
-movie Each dictionary in this list will have the following fields:
+movie. Each dictionary in this list will have the following fields:
 
    movie_title -- (TEXT) the title of the movie
-   publication_year -- (INTEGER) year the movie was published
-   rating -- (FLOAT) avg rating of movie
+   release_year -- (INTEGER) year the movie was released
+   image_link -- (TEXT) link to an image of the movie
+   overview -- (TEXT) overview of the movie
 
 EXAMPLE:
-    /movies?search_text=in&rating>3&publication_year>=2010
+    /movies/Memento/0
 
-       [{"movie_title":"Inside Out", "publication_year":"2015", "rating":"4.3"},
-        {"movie_title":"How to Train Your Dragon", "publication_year":"2010", "rating":"3.1"}]
+       [{"movie_title":"Memento", 
+         "publication_year":"2000", 
+         "image_link":"https://images.mubicdn.net/images/film/142/cache-32631-1544094102/image-w1280.jpg", 
+         "overview":"Suffering short-term memory loss after a head injury, Leonard Shelby embarks on a grim quest to find the lowlife who murdered his wife in this gritty, complex thriller that packs more knots than a hangman's noose. To carry out his plan, Shelby snaps Polaroids of people and places, jotting down contextual notes on the backs of photos to aid in his search and jog his memory. He even tattoos his own body in a desperate bid to remember."}]
 
 
 
+
+REQUEST: /movie_bio/<movie_id>
+
+GET parameters
+    movie_id -- id of the movie to be searched for
+
+RESPONSE: a JSON list of a dictionary which represents one movie.
+Each dictionary will have the following fields:
+
+    movie_title -- (TEXT) the title of the movie
+    release_year -- (INTEGER) year the movie was released
+    image_link -- (TEXT) link to an image of the movie
+    overview -- (TEXT) overview of the movie
+    mubi_url -- (TEXT) url to the movie
+    title_lang -- (TEXT) Language of the title of the movie
+    orig_lang -- (TEXT) Original language of the movie
+    runtime -- (TEXT) Runtime of the movie
+    adult -- (INTERGER) 0 or 1 representing whether movie is family friendly
+    budget -- (NUMERIC) cost to make film
+    revenue -- (NUMERIC) Revenue from movie
+    director_id -- (TEXT) id of director who directed the film
+
+EXAMPLE:
+    /movie_bio/142/0
+
+    [{'movie_title': 'Memento', 
+      'release_year': 2000, 
+      'image_link': 'https://images.mubicdn.net/images/film/142/cache-32631-1544094102/image-w1280.jpg', 
+      'overview': "Suffering short-term memory loss after a head injury, Leonard Shelby embarks on a grim quest to find the lowlife who murdered his wife in this gritty, complex thriller that packs more knots than a hangman's noose. To carry out his plan, Shelby snaps Polaroids of people and places, jotting down contextual notes on the backs of photos to aid in his search and jog his memory. He even tattoos his own body in a desperate bid to remember.", 
+      'mubi_url': 'http://mubi.com/films/memento', 
+      'title_lang': 'en', 
+      'orig_lang': 'en', 
+      'runtime': '113', 
+      'adult': 1, 
+      'budget': 9000000, 
+      'revenue': 39723096, 
+      'director_id': '1126'}]
+
+
+
+
+REQUEST: directors/<int:director_id>
+
+GET parameters
+    director_id -- ID of the director to be searched
+
+RESPONSE: a JSON list of a dictionary which represents one director.
+Each dictionary will have the following fields:
+    name -- (TEXT) name of the director
+    director_url -- (TEXT) url to a short bio about the director
+
+EXAMPLE:
+    directors/1126
+
+    [{'name': 'Christopher Nolan', 
+      'director_url': 'http://mubi.com/cast/christopher-nolan'}]

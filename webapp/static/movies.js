@@ -144,7 +144,8 @@ function onMoviesClick(movie_id) {
         for (let k = 0; k < movies.length; k++) {
             let movie = movies[k];
             listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>' 
-                        + '<h2 style="margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
+                        + '<h2 style="float:left; margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
+                        + '<h3 style="float:right; margin:10px">Runtime: ' + movie['runtime'] + ' minutes<h3>'
                         + '<img class="bio_img" src="' + movie['image_link'] + '">' 
                         + '<h4 style="margin:10px">Overview</h4>'
                         + '<p style="margin:10px">' + movie['overview'] + '</p>' 
@@ -152,7 +153,6 @@ function onMoviesClick(movie_id) {
                         + '<p style="margin:10px">Language of Movie Title: ' + movie['title_lang'] + '<br>'
                         + 'Language of Original Movie: ' + movie['title_lang'] + '<br>'
                         + 'Budget: ' + movie['budget'] + ' Revenue: ' + movie['revenue'] + '<br>'
-                        + 'Runtime: ' + movie['runtime'] + '<br>'
                         + 'Adult Movie' + movie['adult'] + '</p>';
         }
 

@@ -135,5 +135,5 @@ def get_director(director_id):
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
-
+    print("HOWDCQEOQWCJQCNJBEIOJCWHJEIJCQWBHWOEICRWFHJROIWHJ")
     return json.dumps(director_array)

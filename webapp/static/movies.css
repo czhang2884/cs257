@@ -22,14 +22,6 @@
   align-items: center;
 }
 
-.results_box {
-  float: left;
-  width: 75%;
-  height: 100%;
-  border: 3px solid gray;
-  margin: 0;
-}
-
 .main_results_box {
   flex: 1;
 }
@@ -74,22 +66,6 @@ ul {
 .box{
   float: right;
   display: flex;
-}
-
-.results_box {
-  float: left;
-  width: 75%;
-  height: 100%;
-  border: 3px solid gray;
-  margin: 0;
-}
-
-.movie_recs_box {
-  float: right;
-  width: 20%;
-  height: 100%;
-  border: 3px solid gray;
-  margin: 0;
 }
 
 .bio_box {
@@ -176,4 +152,51 @@ ul {
   border: 3px solid gray;
   margin: 0;
   text-align: center;
+}
+
+
+
+
+#exampletable {
+  overflow-y: auto;
+  height: 550px;
+  width: 100%;
+}
+
+.results_box {
+  float: left;
+  width: 70%;
+  height: 100%;
+  margin: 0
+}
+
+.movie_filter_box {
+  float: right;
+  width: 25%;
+  height: 550px;
+  position: fixed;
+  margin-right: 10px;
+  right: 20px;
+}
+
+
+.vertical-menu {
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #04AA6D;
+  color: white;
 }

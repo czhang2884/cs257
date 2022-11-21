@@ -148,10 +148,11 @@ function onMoviesClick(movie_id) {
             let director_urls = '';
             for (let m = 0; m < director_id_array.length; m++) {
                 director__dictionary = getDirectors(director_id_array[m])
-                // director_names += director__dictionary['name']
-                // director_urls += director__dictionary['director_url']
+                director_names += director__dictionary['name']
+                director_urls += director__dictionary['director_url']
             }
-            listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>' 
+
+            listBody += '<h1 style="margin:10px">' + movie['movie_title'] + '</h1>'
                         + '<h2 style="float:left; margin:10px">Release Year: ' + movie['release_year'] + '</h2>' 
                         + '<h3 style="float:right; margin:10px">Runtime: ' + movie['runtime'] + ' minutes<h3>'
                         + '<img class="bio_img" src="' + movie['image_link'] + '">' 
